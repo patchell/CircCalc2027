@@ -230,6 +230,8 @@
     <ClInclude Include="SuperHetTuning.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TimeConstant.h" />
+    <ClInclude Include="Turns.h" />
+    <ClInclude Include="TurnsPerInch.h" />
     <ClInclude Include="Value.h" />
     <ClInclude Include="Xc.h" />
     <ClInclude Include="Xl.h" />
@@ -271,6 +273,8 @@
     <ClCompile Include="RiseTime.cpp" />
     <ClCompile Include="SuperHetTuning.cpp" />
     <ClCompile Include="TimeConstant.cpp" />
+    <ClCompile Include="Turns.cpp" />
+    <ClCompile Include="TurnsPerInch.cpp" />
     <ClCompile Include="Value.cpp" />
     <ClCompile Include="Xc.cpp" />
     <ClCompile Include="Xl.cpp" />

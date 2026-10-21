@@ -40,33 +40,33 @@
 //-----------------------------------------
 // Values
 //-----------------------------------------
-#include "Value.h"
+#include "Value.h"			// Base Value object
 
-#include "Inches.h"
-#include "Capacitor.h"
-#include "Inductor.h"
-#include "Resistor.h"
-#include "Xc.h"
-#include "Xl.h"
-#include "Frequency.h"
-#include "TimeConstant.h"
-#include "RiseTime.h"
-#include "Bw.h"
-#include "Q.h"
-#include "ResFreq.h"
-
-#include "CoilCalculator.h"
+#include "Inches.h"			// Inches Value object
+#include "Capacitor.h"		// Capacitor Value object
+#include "Inductor.h"		// Inductor Value object
+#include "Resistor.h"		// Resistor Value object
+#include "Xc.h"				// Capacitive Reactance Value object
+#include "Xl.h"				// Inductive Reactance Value object
+#include "Frequency.h"		// Frequency Value object
+#include "TimeConstant.h"	// Time Constant Value object
+#include "RiseTime.h"		// Rise Time Value object
+#include "Bw.h"				// Bandwidth Value object
+#include "Q.h"				// Quality Factor Value object
+#include "TurnsPerInch.h"	// Turns Per Inch Value object
+#include "Turns.h"			// Turns Value object
 
 //------------------------------------------
 // Calculator Classes
 //------------------------------------------
-#include "PaddedCapacitance.h"
 
-#include "Calculation.h"
-#include "CapacitiveReactance.h"
-#include "InductiveReactance.h"
-#include "Resonant.h"
-#include "SuperHetTuning.h"
+#include "Calculation.h"			// Base Calculation object
+#include "CapacitiveReactance.h"	// Capacitive Reactance Calculation object
+#include "InductiveReactance.h"		// Inductive Reactance Calculation object
+#include "Resonant.h"				// Resonant Calculation object
+#include "CoilCalculator.h"			// Coil Calculator object
+#include "PaddedCapacitance.h"		// Padded Capacitance object for Super Heterodyne Tuning
+#include "SuperHetTuning.h"			// Super Heterodyne Tuning Calculation object
 
 #include "Plot.h"
 
@@ -74,14 +74,14 @@
 // Dialog Box Headers
 //------------------------------------------
 
-#include "DlgCapacitiveReactance.h"
-#include "DlgCoilDesignCalculator.h"
-#include "DlgInductiveReactance.h"
-#include "DlgResonantLRC.h"
-#include "DlgSuperHeterodynMixer.h"
-#include "DlgTransformerDesignCalculator.h"
-#include "DlgTransistorBiasCalculator.h"
-#include "DlgVoltageDivider.h"
+#include "DlgCapacitiveReactance.h"				// Capacitive Reactance dialog box
+#include "DlgCoilDesignCalculator.h"			// Coil Design Calculator dialog box
+#include "DlgInductiveReactance.h"				// Inductive Reactance dialog box
+#include "DlgResonantLRC.h"						// Resonant LRC dialog box
+#include "DlgSuperHeterodynMixer.h"				// Super Heterodyne Mixer dialog box
+#include "DlgTransformerDesignCalculator.h"		// Transformer Design Calculator dialog box
+#include "DlgTransistorBiasCalculator.h"		// Transistor Bias Calculator dialog box
+#include "DlgVoltageDivider.h"					// Voltage Divider dialog box
 
 
 #endif //PCH_H

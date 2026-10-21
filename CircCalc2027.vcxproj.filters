@@ -126,6 +126,12 @@
     <ClInclude Include="Inches.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TurnsPerInch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Turns.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CircCalc2027.cpp">
@@ -228,6 +234,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Inches.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TurnsPerInch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Turns.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

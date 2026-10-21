@@ -32,7 +32,7 @@ bool CXl::HasValidUnits(ValueUnits vuUnits)
 
 double CXl::GetValue(ValueUnits vuUnits)
 {
-	double value;
+	double value = 0.0;
 
 	if (IsSet() && HasValidUnits(vuUnits))
 	{
@@ -52,7 +52,22 @@ char* CXl::GetString(CString& cS, ValueUnits vuUnits)
 	CString csFormat;
 	char* pS = NULL;
 
-
-
-	return nullptr;
+	if (HasValidUnits(vuUnits) && IsSet())
+	{
+		value = CValue::GetValue();
+		switch (vuUnits)
+		{
+		case ValueUnits::OHMS:
+			if (modf(value, NULL) == 0.0)
+				csFormat = _T("%0.0lf");
+			else
+				csFormat = _T("%0.3lf");
+			cS.Format(csFormat, value);
+			pS = CT2A(cS);
+			break;
+		}
+	}
+	else
+		cS.Empty();
+	return pS;
 }

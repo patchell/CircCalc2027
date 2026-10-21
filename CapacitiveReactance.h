@@ -30,23 +30,23 @@ public:
 	static double CalculateRiseTime(double TC);
 	static double CalculateFc(double TC);
 	//--------------------------------
-	double Get_C_InFarads() const { return m_C.GetValue(); }	//convert pF to Farads
-	double Get_C_InPicoFarads() const { return m_C.GetValueInPicoFarads(); }
-	double Get_F() const { return m_F.GetValue(); }
-	double Get_Xc() const { return m_Xc.GetValue(); }
-	double Get_R() const { return m_R.GetValue(); }
-	double Get_TC() const { return m_TC.GetValue(); }
-	double Get_RiseTime() const { return m_RiseTime.GetValue(); }
-	double Get_Fc() const { return m_Fc.GetValue(); }
+	double Get_C_InFarads()  { return m_C.GetValue(CValue::ValueUnits::FARADS); }	//convert pF to Farads
+	double Get_C_InPicoFarads()  { return m_C.GetValue(CValue::ValueUnits::PICO_FARADS); }
+	double Get_F()  { return m_F.GetValue(CValue::ValueUnits::HERTZ); }
+	double Get_Xc()  { return m_Xc.GetValue(CValue::ValueUnits::OHMS); }
+	double Get_R()  { return m_R.GetValue(CValue::ValueUnits::OHMS); }
+	double Get_TC()  { return m_TC.GetValue(CValue::ValueUnits::SECONDS); }
+	double Get_RiseTime()  { return m_RiseTime.GetValue(CValue::ValueUnits::SECONDS); }
+	double Get_Fc()  { return m_Fc.GetValue(CValue::ValueUnits::HERTZ); }
 	//--------------------------------
-	void Set_C_InFarads(double C){ m_C.SetValueInFarads(C); }
-	void Set_C_InPicoFarads(double PicoFarads) { m_C.SetValueInPicoFarads(PicoFarads); }
-	void Set_Frequency(double F){ m_F.SetValue(F); }
-	void Set_Reactance(double Xc){ m_Xc.SetValue(Xc); }
-	void Set_Resistor(double R){ m_R.SetValue(R); }
-	void Set_TimeConstant(double TC){ m_TC.SetValue(TC); }
-	void Set_RiseTime(double RiseTime){ m_RiseTime.SetValue(RiseTime); }
-	void SetFc(double CutoffFreq){ m_Fc.SetValue(CutoffFreq); }
+	void Set_C_InFarads(double C){ m_C.SetValue(C, CValue::ValueUnits::FARADS); }
+	void Set_C_InPicoFarads(double PicoFarads) { m_C.SetValue(PicoFarads, CValue::ValueUnits::PICO_FARADS); }
+	void Set_Frequency(double F){ m_F.SetValue(F, CValue::ValueUnits::HERTZ); }
+	void Set_Reactance(double Xc){ m_Xc.SetValue(Xc, CValue::ValueUnits::OHMS); }
+	void Set_Resistor(double R){ m_R.SetValue(R, CValue::ValueUnits::OHMS); }
+	void Set_TimeConstant(double TC){ m_TC.SetValue(TC, CValue::ValueUnits::SECONDS); }
+	void Set_RiseTime(double RiseTime){ m_RiseTime.SetValue(RiseTime, CValue::ValueUnits::SECONDS); }
+	void SetFc(double CutoffFreq){ m_Fc.SetValue(CutoffFreq, CValue::ValueUnits::HERTZ); }
 	//--------------------------------
 	void Clr_C(){ m_C.Clr(); }
 	void Clr_F(){ m_F.Clr(); }
