@@ -33,7 +33,6 @@
 
 #include "resource.h"       // main symbols
 #include "afxdialogex.h"
-#include "EditParam.h"
 
 #include "CircCalc2027.h"
 
@@ -74,6 +73,21 @@
 // Dialog Box Headers
 //------------------------------------------
 
+#include "EditParam.h"
+#include "EditBW.h"
+#include "EditCapacitiveReactance.h"
+#include "EditCapacitor.h"
+#include "EditFrequency.h"
+#include "EditInductiveReactance.h"
+#include "EditInductor.h"
+#include "EditResistor.h"
+#include "EditSeconds.h"
+#include "EditTurns.h"
+#include "EditTurnsPerInch.h"
+#include "EditInches.h"
+#include "EditQFactor.h"
+#include "EditDouble.h"
+
 #include "DlgCapacitiveReactance.h"				// Capacitive Reactance dialog box
 #include "DlgCoilDesignCalculator.h"			// Coil Design Calculator dialog box
 #include "DlgInductiveReactance.h"				// Inductive Reactance dialog box
@@ -82,6 +96,9 @@
 #include "DlgTransformerDesignCalculator.h"		// Transformer Design Calculator dialog box
 #include "DlgTransistorBiasCalculator.h"		// Transistor Bias Calculator dialog box
 #include "DlgVoltageDivider.h"					// Voltage Divider dialog box
+
+#include "CircCalcDoc.h"
+#include "CircCalcView.h"
 
 
 #endif //PCH_H

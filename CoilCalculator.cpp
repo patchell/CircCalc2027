@@ -14,28 +14,28 @@ void CCoilCalculator::GetString(CString& cS, Param param)
 	switch (param)
 	{
 	case Param::DIAMETER_1:
-		m_Diameter_1.GetString(cS);
+		m_Diameter_1.GetString(cS, CValue::ValueUnits::INCHES);
 		break;
 	case Param::RADIUS_1:
-		m_Radius_1.GetString(cS);
+		m_Radius_1.GetString(cS, CValue::ValueUnits::INCHES);
 		break;
 	case Param::RADIUS_2:
-		m_Radius_2.GetString(cS);
+		m_Radius_2.GetString(cS, CValue::ValueUnits::INCHES);
 		break;
 	case Param::COIL_LENGTH:
-		m_CoilLength.GetString(cS);
+		m_CoilLength.GetString(cS, CValue::ValueUnits::INCHES);
 		break;
 	case Param::INDUCTANCE:
-		m_Inductance.GetString(cS);
+		m_Inductance.GetString(cS, CValue::ValueUnits::MICROHENRYS);
 		break;
 	case Param::TURNS:
-		m_Turns.GetString(cS);
+		m_Turns.GetString(cS, CValue::ValueUnits::TURNS);
 		break;
 	case Param::WIRE_DIAMETER:
-		m_WireDiameter.GetString(cS);
+		m_WireDiameter.GetString(cS, CValue::ValueUnits::INCHES);
 		break;
 	case Param::TURNS_PER_INCH:
-		m_TurnsPerInch.GetString(cS);
+		m_TurnsPerInch.GetString(cS, CValue::ValueUnits::TURNS_PER_INCH);
 		break;
 	case Param::MULTI_LAYER:
 		cS.Format(_T("%d"), m_bMuliLayer ? 1 : 0);
@@ -69,32 +69,32 @@ void CCoilCalculator::Calculate()
 		// we will need to know the wire diameter
 		//-------------------------------------
 		do {
-			TurnsPerLayer = m_TurnsPerInch.GetValue() * m_CoilLength.GetValueInInches();
-			Temp = m_Radius_1.GetValueInInches() + (m_WireDiameter.GetValueInInches() * CoilLayers);
-			m_Radius_2.SetValueInInches(Temp);
+			TurnsPerLayer = m_TurnsPerInch.GetValue(CValue::ValueUnits::TURNS_PER_INCH) * m_CoilLength.GetValue(CValue::ValueUnits::INCHES);
+			Temp = m_Radius_1.GetValue(CValue::ValueUnits::INCHES) + (m_WireDiameter.GetValue(CValue::ValueUnits::INCHES) * CoilLayers);
+			m_Radius_2.SetValue(Temp, CValue::ValueUnits::INCHES);
 			Turns = CalculateMultiLayerTurns(
-				m_Radius_1.GetValueInInches(),
-				m_Radius_2.GetValueInInches(), 
-				m_CoilLength.GetValueInInches(), 
-				m_Inductance.GetValueInMicroHenrys()
+				m_Radius_1.GetValue(CValue::ValueUnits::INCHES),
+				m_Radius_2.GetValue(CValue::ValueUnits::INCHES), 
+				m_CoilLength.GetValue(CValue::ValueUnits::INCHES), 
+				m_Inductance.GetValue(CValue::ValueUnits::HENRYS)
 			);
 			if(Turns/TurnsPerLayer > CoilLayers)
 			{
 				CoilLayers++;
-				Temp = m_Radius_1.GetValueInInches() + (m_WireDiameter.GetValueInInches() * CoilLayers);
-				m_Radius_2.SetValueInInches(Temp);
+				Temp = m_Radius_1.GetValue(CValue::ValueUnits::INCHES) + (m_WireDiameter.GetValue(CValue::ValueUnits::INCHES) * CoilLayers);
+				m_Radius_2.SetValue(Temp, CValue::ValueUnits::INCHES);
 				PercentError = 100.0;
 			}
 			else
 			{
 				L = CalculateInductanceMultiLayer(
-					m_Radius_1.GetValueInInches(), 
-					m_Radius_2.GetValueInInches(), 
-					m_CoilLength.GetValueInInches(), 
+					m_Radius_1.GetValue(CValue::ValueUnits::INCHES), 
+					m_Radius_2.GetValue(CValue::ValueUnits::INCHES), 
+					m_CoilLength.GetValue(CValue::ValueUnits::INCHES), 
 					Turns
 				);
-				Error = m_Inductance.GetValueInMicroHenrys() - L;
-				PercentError = Error / m_Inductance.GetValueInMicroHenrys();
+				Error = m_Inductance.GetValue(CValue::ValueUnits::HENRYS) - L;
+				PercentError = Error / m_Inductance.GetValue(CValue::ValueUnits::HENRYS);
 			}
 			Iteration++;
 			printf(
@@ -115,13 +115,13 @@ void CCoilCalculator::Calculate()
 		// Guess the Length of the coil
 		// and the number of turns
 		//-------------------------------------
-		Len = m_Radius_1.GetValueInInches();
+		Len = m_Radius_1.GetValue(CValue::ValueUnits::INCHES);
 		do {
-			Turns = CalculateSingleLayerTurns(m_Radius_1.GetValueInInches(), Len, m_Inductance.GetValueInMicroHenrys());
-			Len = Turns / m_TurnsPerInch.GetValue();
-			L = CalculateInductanceSingleLayer(m_Radius_1.GetValueInInches(), Len, Turns);
-			Error = m_Inductance.GetValueInMicroHenrys() - L;
-			PercentError = 100 * Error / m_Inductance.GetValueInMicroHenrys();
+			Turns = CalculateSingleLayerTurns(m_Radius_1.GetValue(CValue::ValueUnits::INCHES), Len, m_Inductance.GetValue(CValue::ValueUnits::HENRYS));
+			Len = Turns / m_TurnsPerInch.GetValue(CValue::ValueUnits::TURNS_PER_INCH);
+			L = CalculateInductanceSingleLayer(m_Radius_1.GetValue(CValue::ValueUnits::INCHES), Len, Turns);
+			Error = m_Inductance.GetValue(CValue::ValueUnits::HENRYS) - L;
+			PercentError = 100 * Error / m_Inductance.GetValue(CValue::ValueUnits::HENRYS);
 			Iteration++;
 			printf(
 				"Iteration=%d  Turns=%lf  Len=%lf  L=%lf  Error=%lf  PercentError=%lf\n", 
@@ -197,6 +197,6 @@ double CCoilCalculator::CalculateInductanceMultiLayer(double R1, double R2, doub
 
 void CCoilCalculator::Set_WireDiameter(double d)
 {
-	m_WireDiameter.SetValueInInches(d);
-	m_TurnsPerInch.SetValue(1.0 / m_WireDiameter.GetValueInInches());
+	m_WireDiameter.SetValue(d, CValue::ValueUnits::INCHES);
+	m_TurnsPerInch.SetValue(1.0 / m_WireDiameter.GetValue(CValue::ValueUnits::INCHES), CValue::ValueUnits::TURNS_PER_INCH);
 }

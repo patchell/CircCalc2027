@@ -13,5 +13,6 @@ public:
 	virtual double GetValue(ValueUnits vuUnits) override;
 	virtual char* GetString(CString& cS, ValueUnits vuUnits) override;
 	//-----------------------------------
+	void Print();
 };
 

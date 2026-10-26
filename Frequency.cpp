@@ -48,7 +48,7 @@ char* CFrequency::GetString(CString& cS, ValueUnits vuUnits)
 		switch (vuUnits)
 		{
 		case ValueUnits::HERTZ:
-			cS.Format(_T("%0.0lf"), GetValue());
+			cS.Format(_T("%0.0lf"), GetValue(vuUnits));
 			break;
 		}
 		pS = CT2A(cS);
@@ -58,4 +58,9 @@ char* CFrequency::GetString(CString& cS, ValueUnits vuUnits)
 		cS.Empty();
 	}
 	return pS;
+}
+
+void CFrequency::Print()
+{
+	printf("Frequency: %lf Hertz\n", GetValue(ValueUnits::HERTZ));
 }

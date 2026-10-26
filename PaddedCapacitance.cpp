@@ -2,11 +2,6 @@
 
 CPaddedCapacitance::CPaddedCapacitance()
 {
-	m_HighBaseCapacitance = 0.0;
-	m_LowBaseCapacitance = 0.0;
-	m_ParallelPadCapacitance = 0.0;
-	m_SeriesPadCapacitance = 0.0;
-	m_OverallParallelCapacitance = 0.0;
 }
 
 CPaddedCapacitance::~CPaddedCapacitance()
@@ -22,11 +17,11 @@ bool CPaddedCapacitance::Create(
 	unsigned UseCapacitor
 )
 {
-	m_LowBaseCapacitance = LowBaseCapacitance;
-	m_HighBaseCapacitance = HighBaseCapacitance;
-	m_ParallelPadCapacitance = ParallelPadCapacitance;
-	m_SeriesPadCapacitance = SeriesPadCapacitance;
-	m_OverallParallelCapacitance = OverallParallelCapacitancee;
+	m_LowBaseCapacitance.SetValue(LowBaseCapacitance, CValue::ValueUnits::FARADS);
+	m_HighBaseCapacitance.SetValue(HighBaseCapacitance, CValue::ValueUnits::FARADS);
+	m_ParallelPadCapacitance.SetValue(ParallelPadCapacitance, CValue::ValueUnits::FARADS);
+	m_SeriesPadCapacitance.SetValue(SeriesPadCapacitance, CValue::ValueUnits::FARADS);
+	m_OverallParallelCapacitance.SetValue(OverallParallelCapacitancee, CValue::ValueUnits::FARADS)	;
 	m_UseCapacitor = UseCapacitor;
 	return false;
 }
@@ -48,19 +43,19 @@ double CPaddedCapacitance::CalculateCapacitance()
 		switch (m_UseCapacitor & Mask)
 		{
 		case USE_LOW_BASE_CAPACITANCE:
-			C = m_LowBaseCapacitance;
+			C = m_LowBaseCapacitance.GetValue(CValue::ValueUnits::FARADS);
 			break;
 		case USE_HIGH_BASE_CAPACITANCE:
-			C = m_HighBaseCapacitance;
+			C = m_HighBaseCapacitance.GetValue(CValue::ValueUnits::FARADS);
 			break;
 		case USE_PARALLEL_PAD_CAPACITANCE:
-			C = CalculateParallelCapacitance(C, m_ParallelPadCapacitance);
+			C = CalculateParallelCapacitance(C, m_ParallelPadCapacitance.GetValue(CValue::ValueUnits::FARADS));
 			break;
 		case USE_SERIES_PAD_CAPACITANCE:
-			C = CalculateSeriesCapacitance(C, m_SeriesPadCapacitance);
+			C = CalculateSeriesCapacitance(C, m_SeriesPadCapacitance.GetValue(CValue::ValueUnits::FARADS));
 			break;
 		case USE_OVERALL_PARALLEL_CAPACITANCE:
-			C = CalculateParallelCapacitance(C, m_OverallParallelCapacitance);
+			C = CalculateParallelCapacitance(C, m_OverallParallelCapacitance.GetValue(CValue::ValueUnits::FARADS));
 			break;
 		default:
 			break;

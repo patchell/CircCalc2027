@@ -18,6 +18,16 @@ CDlgResonantLRC::~CDlgResonantLRC()
 {
 }
 
+void CDlgResonantLRC::UpdateControls()
+{
+	m_Edit_Capacitor.UpdateValue();
+	m_Edit_CenterFrequency.UpdateValue();
+	m_Edit_Inductor.UpdateValue();
+	m_Edit_BandWidth.UpdateValue();
+	m_Edit_Q.UpdateValue();
+	m_Edit_Resistor.UpdateValue();
+}
+
 void CDlgResonantLRC::DoDataExchange(CDataExchange* pDX)
 {
     CDialogEx::DoDataExchange(pDX);
@@ -76,4 +86,11 @@ void CDlgResonantLRC::OnBnClickedButtonClrFreq()
 void CDlgResonantLRC::OnBnClickedButtonResonantFreq()
 {
 	// TODO: Add your control notification handler code here
+}
+
+BOOL CDlgResonantLRC::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();
+
+	return TRUE;  // return TRUE unless you set the focus to a control
 }

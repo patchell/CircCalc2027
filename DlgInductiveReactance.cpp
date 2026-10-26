@@ -44,28 +44,14 @@ bool CDlgInductiveReactance::CalculateXl()
 
 void CDlgInductiveReactance::UpdateXlEditBoxes()
 {
-	CString cS;
 
-	m_InductiveReactance.Get_Fc_String(cS);
-	m_Edit_CutOffFrequency.SetWindowTextW(cS);
-
-	m_InductiveReactance.Get_F_String(cS);
-	m_Edit_Frequency.SetWindowTextW(cS);
-
-	m_InductiveReactance.Get_L_String(cS);
-	m_Edit_Inductance.SetWindowTextW(cS);
-
-	m_InductiveReactance.Get_R_String(cS);
-	m_Edit_Resistance.SetWindowTextW(cS);
-
-	m_InductiveReactance.Get_Rt_String(cS);
-	m_Edit_RiseTime.SetWindowTextW(cS);
-
-	m_InductiveReactance.Get_Tc_String(cS);
-	m_Edit_TimeConstant.SetWindowTextW(cS);
-
-	m_InductiveReactance.Get_Xl_String(cS);
-	m_Edit_Reactance.SetWindowTextW(cS);
+	m_Edit_CutOffFrequency.UpdateValue();
+	m_Edit_Frequency.UpdateValue();
+	m_Edit_Inductance.UpdateValue();
+	m_Edit_Resistance.UpdateValue();
+	m_Edit_RiseTime.UpdateValue();
+	m_Edit_TimeConstant.UpdateValue();
+	m_Edit_Reactance.UpdateValue();
 }
 
 
@@ -78,7 +64,6 @@ BEGIN_MESSAGE_MAP(CDlgInductiveReactance, CDialogEx)
 	//---------------------------------------------------------------------------------------------------------
 	ON_BN_CLICKED(IDC_BUTTON_CALC_XL, &CDlgInductiveReactance::OnClickedButtonCalcXl)
 	//---------------------------------------------------------------------------------------------------------
-	ON_MESSAGE(WM_XL, &CDlgInductiveReactance::OnXl)
 	ON_BN_CLICKED(IDC_BUTTON_INDUCTIVE_REACTANCE_RESISTANCE_CLR, &CDlgInductiveReactance::OnClickedButtonInductiveReactanceResistanceClr)
 	ON_BN_CLICKED(IDC_BUTTON_inductive_reactance_cutoff_clr, &CDlgInductiveReactance::OnClickedButtonInductiveReactanceCutoffClr)
 END_MESSAGE_MAP()
@@ -135,57 +120,26 @@ void CDlgInductiveReactance::OnClickedButtonCalcXl()
 	CalculateXl();
 }
 
-LRESULT CDlgInductiveReactance::OnXl(WPARAM wParam, LPARAM lParam)
-{
-	CString m_s;
-
-	switch (lParam)
-	{
-	case IDC_EDIT_XL_FC:
-		m_InductiveReactance.Set_Fc(m_Edit_CutOffFrequency.GetValue());
-		break;
-	case IDC_EDIT_XL_F:
-		m_InductiveReactance.Set_F(m_Edit_Frequency.GetValue());
-		break;
-	case IDC_EDIT_XL_L:
-		m_InductiveReactance.Set_L_InMicroHenrys(m_Edit_Inductance.GetValue());
-		break;
-	case IDC_EDIT_XL_R:
-		m_InductiveReactance.Set_R(m_Edit_Resistance.GetValue());
-		break;
-	case IDC_EDIT_XL_RISE_TIME:
-		m_InductiveReactance.Set_Rt(m_Edit_RiseTime.GetValue());
-		break;
-	case IDC_EDIT_XL_TIME_CONSTANT:
-		m_InductiveReactance.Set_Tc(m_Edit_TimeConstant.GetValue());
-		break;
-	case IDC_EDIT_XL:
-		m_InductiveReactance.Set_Xl(m_Edit_Inductance.GetValue());
-		break;
-	}
-	return LRESULT();
-}
-
 BOOL CDlgInductiveReactance::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
 	m_Edit_CutOffFrequency.SetName("Cutoff Frequency");
-	m_Edit_CutOffFrequency.SetWMMessage(WM_XL);
+	m_Edit_CutOffFrequency.SetValue(m_InductiveReactance.Get_Fc_Value(), CValue::ValueUnits::HERTZ);
 
 	m_Edit_Frequency.SetName("Frequency");
-	m_Edit_Frequency.SetWMMessage(WM_XL);
+	m_Edit_Frequency.SetValue(m_InductiveReactance.Get_F_Value(), CValue::ValueUnits::HERTZ);
 
 	m_Edit_Inductance.SetName("Inductance");
-	m_Edit_Inductance.SetWMMessage(WM_XL);
+	m_Edit_Inductance.SetValue(m_InductiveReactance.Get_L_Value(), CValue::ValueUnits::MICROHENRYS);
 
 	m_Edit_Resistance.SetName("Resistance");
-	m_Edit_Resistance.SetWMMessage(WM_XL);
+	m_Edit_Resistance.SetValue(m_InductiveReactance.Get_R_Value(), CValue::ValueUnits::OHMS);
 
 	m_Edit_RiseTime.SetName("Rise Time");
-	m_Edit_RiseTime.SetWMMessage(WM_XL);
+	m_Edit_RiseTime.SetValue(m_InductiveReactance.Get_Rt_Value(), CValue::ValueUnits::SECONDS);
 
 	m_Edit_TimeConstant.SetName("Time Constant");
-	m_Edit_TimeConstant.SetWMMessage(WM_XL);
+	m_Edit_TimeConstant.SetValue(m_InductiveReactance.Get_Tc_Value(), CValue::ValueUnits::SECONDS);
 
 	return TRUE;  }

@@ -22,15 +22,17 @@ class CDlgCoilDesignCalculator : public CDialogEx
 
 	CCoilCalculator m_CoilCalculator;
 
-	CButton m_Check_MultiLayerCoil;
-	CEditParam m_Edit_Diameter1;
-	CEditParam m_Edit_Radius_1;
-	CEditParam m_Edit_Radius_2;
-	CEditParam m_Edit_WireDiameter;
-	CEditParam m_Edit_Inductance;
-	CEditParam m_Edit_CoilLength;
-	CEditParam m_Edit_Turns;
-	CEditParam m_Edit_TurnsPerInch;
+	CButton m_Check_MultiLayerCoil;		// Multi-layer coil emable checkbox
+
+	CEditInches m_Edit_Diameter1;
+	CEditInches m_Edit_Radius_1;
+	CEditInches m_Edit_Radius_2;
+	CEditInches m_Edit_WireDiameter;
+	CEditInductor m_Edit_Inductance;
+	CEditInches m_Edit_CoilLength;
+	CEditTurns m_Edit_Turns;
+	CEditTurnsPerInch m_Edit_TurnsPerInch;
+
 	CComboBox m_Combo_WireDiameter;
 
 public:

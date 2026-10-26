@@ -53,6 +53,15 @@ public:
 	double Get_Xl()  { return m_Xl.GetValue(CValue::ValueUnits::OHMS); }
 	double Get_R()  { return m_R.GetValue(CValue::ValueUnits::OHMS); }
 	double Get_Q()  { return m_Q.GetValue(CValue::ValueUnits::NONE); }
+	//----------- Get Value Objects ----------------------
+	CFrequency* Get_F_Value() { return &m_F; }
+	CCapacitor* Get_C_Value() { return &m_C; }
+	CInductor* Get_L_Value() { return &m_L; }
+	CXc* Get_Xc_Value() { return &m_Xc; }
+	CXl* Get_Xl_Value() { return &m_Xl; }
+	CResistor* Get_R_Value() { return &m_R; }
+	CQ* Get_Q_Value() { return &m_Q; }
+	CBw* Get_BW_Value() { return &m_BW; }
 	//--------------------------------
 	char* Get_C_String(CString& cS, CValue::ValueUnits VU) { return m_C.GetString(cS, VU); }
 	char* Get_L_String(CString& cS, CValue::ValueUnits VU) { return m_L.GetString(cS, VU); }

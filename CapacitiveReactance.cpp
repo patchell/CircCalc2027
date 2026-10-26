@@ -73,7 +73,7 @@ bool CCapacitiveReactance::CalculateC()
 	{
 		if(m_Xc.IsSet() && m_F.IsSet())
 		{
-			m_C.SetValueInFarads(CalculateCapacitance(Get_Xc(), Get_F()));
+			m_C.SetValue(CalculateCapacitance(Get_Xc(CValue::ValueUnits::OHMS), Get_F(CValue::ValueUnits::HERTZ	)), CValue::ValueUnits::FARADS);
 			bChangeMade = true;
 		}
 	}
@@ -88,7 +88,7 @@ bool CCapacitiveReactance::CalculateF()
 	{
 		if(m_Xc.IsSet() && m_C.IsSet())
 		{
-			m_F.SetValue(CalculateFrequency(Get_Xc(), Get_C_InFarads()));
+			m_F.SetValue(CalculateFrequency(Get_Xc(CValue::ValueUnits::OHMS), Get_C(CValue::ValueUnits::FARADS)), CValue::ValueUnits::HERTZ);
 			bChangeMade = true;
 		}
 	}
@@ -103,7 +103,7 @@ bool CCapacitiveReactance::CalculateXc()
 	{
 		if(m_C.IsSet() && m_F.IsSet())
 		{
-			m_Xc.SetValue(CalculateReactance(Get_C_InFarads(), Get_F()));
+			m_Xc.SetValue(CalculateReactance(Get_C(CValue::ValueUnits::FARADS), Get_F(CValue::ValueUnits::HERTZ)), CValue::ValueUnits::OHMS);
 			bChangeMade = true;
 		}
 	}
@@ -118,7 +118,7 @@ bool CCapacitiveReactance::CalculateR()
 	{
 		if(m_Fc.IsSet() && m_C.IsSet())
 		{
-			m_R.SetValue(CalculateResistor(Get_Fc(), Get_C_InFarads()));
+			m_R.SetValue(CalculateResistor(Get_Fc(CValue::ValueUnits::HERTZ), Get_C(CValue::ValueUnits::FARADS)), CValue::ValueUnits::OHMS);
 			bChangeMade = true;
 		}
 	}
@@ -133,7 +133,7 @@ bool CCapacitiveReactance::CalculateTC()
 	{
 		if(m_R.IsSet() && m_C.IsSet())
 		{
-			m_TC.SetValue(CalculateTimeConstant(Get_R(), Get_C_InFarads()));
+			m_TC.SetValue(CalculateTimeConstant(Get_R(CValue::ValueUnits::OHMS), Get_C(CValue::ValueUnits::FARADS)), CValue::ValueUnits::SECONDS);
 			bChangeMade = true;
 		}
 	}
@@ -151,15 +151,15 @@ bool CCapacitiveReactance::CalculateRt()
 	{
 		if(m_TC.IsSet())
 		{
-			m_RiseTime.SetValue(CalculateRiseTime(Get_TC()));
+			m_RiseTime.SetValue(CalculateRiseTime(Get_TC(CValue::ValueUnits::SECONDS)), CValue::ValueUnits::SECONDS);
 			bChangeMade = true;
 		}
 		else if (m_TC.IsNotSet())
 		{
 			if(m_R.IsSet() && m_C.IsSet())
 			{
-				m_TC.SetValue(CalculateTimeConstant(Get_R(), Get_C_InFarads()));
-				m_RiseTime.SetValue(CalculateRiseTime(Get_TC()));
+				m_TC.SetValue(CalculateTimeConstant(Get_R(CValue::ValueUnits::OHMS), Get_C(CValue::ValueUnits::FARADS)), CValue::ValueUnits::SECONDS);
+				m_RiseTime.SetValue(CalculateRiseTime(Get_TC(CValue::ValueUnits::SECONDS)), CValue::ValueUnits::SECONDS);
 				bChangeMade = true;
 			}
 		}
@@ -175,15 +175,15 @@ bool CCapacitiveReactance::CalculateFc()
 	{
 		if(m_TC.IsSet())
 		{
-			m_Fc.SetValue(CalculateFc(Get_TC()));
+			m_Fc.SetValue(CalculateFc(Get_TC(CValue::ValueUnits::SECONDS)), CValue::ValueUnits::HERTZ);
 			bChangeMade = true;
 		}
 		else if (m_TC.IsNotSet())
 		{
 			if(m_R.IsSet() && m_C.IsSet())
 			{
-				m_TC.SetValue(CalculateTimeConstant(Get_R(), Get_C_InFarads()));
-				m_Fc.SetValue(CalculateFc(Get_TC()));
+				m_TC.SetValue(CalculateTimeConstant(Get_R(CValue::ValueUnits::OHMS), Get_C(CValue::ValueUnits::FARADS)), CValue::ValueUnits::SECONDS);
+				m_Fc.SetValue(CalculateFc(Get_TC(CValue::ValueUnits::SECONDS)), CValue::ValueUnits::HERTZ);
 				bChangeMade = true;
 			}
 		}
@@ -208,9 +208,10 @@ double CCapacitiveReactance::CalculateCapacitance(double Xc, double F)
 {
 	//----------------------
 	// C = 1 / (2 * pi * F * Xc)
+	// Returns capacitance in farads
 	//----------------------
 	double C = 1.0 / (Radians(F) * Xc);
-	return C;	//convert to pF
+	return C;	
 }
 double CCapacitiveReactance::CalculateFrequency(double Xc, double C)
 {
@@ -247,49 +248,61 @@ double CCapacitiveReactance::CalculateFc(double TC)
 
 //------------------------------------------------
 
-char* CCapacitiveReactance::GetCapacitanceString(CString& cS )
+char* CCapacitiveReactance::GetCapacitanceString(CString& cS, CValue::ValueUnits Units )
 {
-	m_C.GetString(cS);
+	m_C.GetString(cS,Units);
 	return CT2A(cS);
 }
 
-char* CCapacitiveReactance::GetFrequencyString(CString& fS )
+char* CCapacitiveReactance::GetFrequencyString(CString& fS, CValue::ValueUnits Units )
 {
-	m_F.GetString(fS);
+	m_F.GetString(fS,Units);
 	return CT2A(fS);
 }
 
-char* CCapacitiveReactance::GetXcString(CString& xS)
+char* CCapacitiveReactance::GetXcString(CString& xS, CValue::ValueUnits Units )
 {
-	m_Xc.GetString(xS);
+	m_Xc.GetString(xS,Units);
 	return CT2A(xS);
 }
 
-char* CCapacitiveReactance::GetResistorString(CString& rS)
+char* CCapacitiveReactance::GetResistorString(CString& rS, CValue::ValueUnits Units )
 {
-	m_R.GetString(rS);
+	m_R.GetString(rS,Units);
 	return CT2A(rS);
 }
 
-char* CCapacitiveReactance::GetTimeConstantString(CString& tcS)
+char* CCapacitiveReactance::GetTimeConstantString(CString& tcS, CValue::ValueUnits Units )
 {
-	m_TC.GetString(tcS);
+	m_TC.GetString(tcS,Units);
 	return CT2A(tcS);
 }
 
-char* CCapacitiveReactance::GetRiseTimeString(CString& rtS)
+char* CCapacitiveReactance::GetRiseTimeString(CString& rtS, CValue::ValueUnits Units )
 {
-	m_RiseTime.GetString(rtS);
+	m_RiseTime.GetString(rtS,Units);
 	return CT2A(rtS);
 }
 
-char* CCapacitiveReactance::GetCutoffFreqString(CString& cfS)
+char* CCapacitiveReactance::GetCutoffFreqString(CString& cfS, CValue::ValueUnits Units )
 {
-	m_Fc.GetString(cfS);
+	m_Fc.GetString(cfS,Units);
 	return CT2A(cfS);
 }
 
 //------------------------------------------------
+
+void CCapacitiveReactance::PrintValues()
+{
+	m_C.Print();
+	m_F.Print();
+	m_Xc.Print();
+	m_R.Print();
+	m_TC.Print();
+	m_RiseTime.Print();
+	m_Fc.Print();
+}
+
 
 
 

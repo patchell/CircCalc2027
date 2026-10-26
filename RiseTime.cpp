@@ -80,3 +80,8 @@ char* CRiseTime::GetString(CString& cS, ValueUnits vuUnits)
 	return pS;
 }
 
+void CRiseTime::Print()
+{
+	printf("Rise Time: %lf seconds\n", GetValue(ValueUnits::SECONDS));
+}
+

@@ -41,7 +41,13 @@ public:
 	void SetParallelPadCapacitance(double C, CValue::ValueUnits VU) { m_ParallelPadCapacitance.SetValue(C, VU); }
 	void SetSeriesPadCapacitance(double C, CValue::ValueUnits VU) { m_SeriesPadCapacitance.SetValue(C, VU); }
 	void SetOverallParallelCapacitance(double C, CValue::ValueUnits VU) { m_OverallParallelCapacitance.SetValue(C, VU); }
-
+	//-------- Get Value Objects ----------------------
+	CCapacitor* GetLowBaseCapacitanceValueObject() { return &m_LowBaseCapacitance; }
+	CCapacitor* GetHighBaseCapacitanceValueObject() { return &m_HighBaseCapacitance; }
+	CCapacitor* GetParallelPadCapacitanceValueObject() { return &m_ParallelPadCapacitance; }
+	CCapacitor* GetSeriesPadCapacitanceValueObject() { return &m_SeriesPadCapacitance; }
+	CCapacitor* GetOverallParallelCapacitanceValueObject() { return &m_OverallParallelCapacitance; }	
+	//-------- Get Methods -----------------
 	double GetLowBaseCapacitance(CValue::ValueUnits VU)  { return m_LowBaseCapacitance.GetValue(VU); }
 	double GetHighBaseCapacitance(CValue::ValueUnits VU)  { return m_HighBaseCapacitance.GetValue(VU); }
 	double GetParallelPadCapacitance(CValue::ValueUnits VU)  { return m_ParallelPadCapacitance.GetValue(VU); }

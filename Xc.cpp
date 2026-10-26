@@ -81,3 +81,8 @@ char* CXc::GetString(CString& cS, ValueUnits vuUnits)
 	}
 	return pS;
 }
+
+void CXc::Print()
+{
+	printf("Capacitive Reactance: %lf Ohms\n", GetValue(ValueUnits::OHMS));
+}

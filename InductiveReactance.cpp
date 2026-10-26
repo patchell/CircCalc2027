@@ -71,13 +71,10 @@ bool CInductiveReactance::CalculateR()
 
 	if (m_R.IsNotSet())
 	{
-		if (m_L.IsSet())
+		if (m_Fc.IsSet() && m_L.IsSet())
 		{
-			if (m_Fc.IsSet() && m_L.IsSet())
-			{
-				m_R.SetValue(CalculateR(Get_L(), Get_Fc()));
-				bChangeMade = true;
-			}
+			m_R.SetValue(CalculateR(Get_L_InHenrys(), Get_Fc()), CValue::ValueUnits::OHMS);
+			bChangeMade = true;
 		}
 	}
 	return bChangeMade;
@@ -91,7 +88,7 @@ bool CInductiveReactance::CalculateFc()
 	{
 		if (m_R.IsSet() && m_L.IsSet())
 		{
-			m_Fc.SetValue(CalculateFc(Get_R(), Get_L()));
+			m_Fc.SetValue(CalculateFc(Get_R(), Get_L_InHenrys()), CValue::ValueUnits::HERTZ);
 			bChangeMade = true;
 		}
 	}
@@ -106,12 +103,12 @@ bool CInductiveReactance::CalculateL()
 	{
 		if(m_Xl.IsSet() && m_F.IsSet())
 		{
-			m_L.SetValueInHenrys(CalculateInductance(Get_Xl(), Get_F()));
+			m_L.SetValue(CalculateInductance(Get_Xl(), Get_F()), CValue::ValueUnits::HENRYS);
 			bChangeMade = true;
 		}
 		else if(m_R.IsSet() && m_Fc.IsSet())
 		{
-			m_L.SetValueInHenrys(Get_R() / (Radians( Get_Fc())));
+			m_L.SetValue(CalculateInductance(Get_R(), Get_Fc()), CValue::ValueUnits::HENRYS);
 			bChangeMade = true;
 		}
 	}
@@ -125,7 +122,7 @@ bool CInductiveReactance::CalculateF()
 	{
 		if(m_Xl.IsSet() && m_L.IsSet())
 		{
-			m_F.SetValue(CalculateFrequency(Get_Xl(), Get_L()));
+			m_F.SetValue(CalculateFrequency(Get_Xl(), Get_L_InHenrys()), CValue::ValueUnits::HERTZ);
 			bChangeMade = true;
 		}
 	}
@@ -141,7 +138,7 @@ bool CInductiveReactance::CalculateXl()
 
 		if (m_F.IsSet() && m_L.IsSet())
 		{
-			m_Xl.SetValue(CalculateReactance(Get_L(), Get_F()));
+			m_Xl.SetValue(CalculateReactance(Get_L_InHenrys(), Get_F()), CValue::ValueUnits::OHMS);
 			bChangeMade = true;
 		}
 	}
@@ -156,10 +153,10 @@ bool CInductiveReactance::CalculateRiseTime()
 	{
 		if (m_R.IsSet() && m_L.IsSet())
 		{
-			m_Rt.SetValue(CalculateRiseTime(Get_L(), Get_R()));
+			m_Rt.SetValue(CalculateRiseTime(Get_L_InHenrys(), Get_R()), CValue::ValueUnits::SECONDS);
 			bChangeMade = true;
 		}
-		m_Rt.SetValue(CalculateRiseTime(Get_L(), Get_R()));
+		m_Rt.SetValue(CalculateRiseTime(Get_L_InHenrys(), Get_R()), CValue::ValueUnits::SECONDS);
 		bChangeMade = true;
 	}
     return bChangeMade;
@@ -173,7 +170,7 @@ bool CInductiveReactance::CalculateTimeConstant()
 	{
 		if (m_R.IsSet() && m_L.IsSet())
 		{
-			m_Tc.SetValue(CalculateTimeConstant(Get_L(), Get_R()));
+			m_Tc.SetValue(CalculateTimeConstant(Get_L_InHenrys(), Get_R()), CValue::ValueUnits::SECONDS);
 			bChangeMade = true;
 		}
 	}

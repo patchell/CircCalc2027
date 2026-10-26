@@ -38,6 +38,14 @@ public:
 	double Get_Fc()  { return m_Fc.GetValue(CValue::ValueUnits::HERTZ); }
 	double Get_Rt()  { return m_Rt.GetValue(CValue::ValueUnits::SECONDS); }
 	double Get_Tc()  { return m_Tc.GetValue(CValue::ValueUnits::SECONDS); }
+	//--------- Get Value Objects ----------------------
+	CInductor* Get_L_Value() { return &m_L; }
+	CFrequency* Get_F_Value() { return &m_F; }
+	CXl* Get_Xl_Value() { return &m_Xl; }
+	CResistor* Get_R_Value() { return &m_R; }
+	CFrequency* Get_Fc_Value() { return &m_Fc; }
+	CRiseTime* Get_Rt_Value() { return &m_Rt; }
+	CTimeConstant* Get_Tc_Value() { return &m_Tc; }
 	//--------------------------------
 	void Set_L_InMicroHenrys(double uH) { m_L.SetValue(uH, CValue::ValueUnits::MICROHENRYS); }
 	void Set_L_InHenrys(double H) { m_L.SetValue(H, CValue::ValueUnits::HENRYS); }

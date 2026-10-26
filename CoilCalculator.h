@@ -65,6 +65,16 @@ public:
 	double Get_WireDiameter()  { return m_WireDiameter.GetValue(CValue::ValueUnits::INCHES); }
 	double Get_TurnPerInch()  { return m_TurnsPerInch.GetValue(CValue::ValueUnits::TURNS_PER_INCH); }
 	bool Get_MultiLayer() const { return m_bMuliLayer; }
+	//--------- Get Value Objects ----------
+	CInches* Get_Diameter_1_Value() { return &m_Diameter_1; }
+	CInches* Get_Radius_1_Value() { return &m_Radius_1; }
+	CInches* Get_Radius_2_Value() { return &m_Radius_2; }
+	CInches* Get_CoilLength_Value() { return &m_CoilLength; }
+	CInductor* Get_Inductance_Value() { return &m_Inductance; }
+	CTurns* Get_Turns_Value() { return &m_Turns; }
+	CInches* Get_WireDiameter_Value() { return &m_WireDiameter; }
+	CTurnsPerInch* Get_TurnPerInch_Value() { return &m_TurnsPerInch; }
+
 	//-------- Set Methods -----------------
 	void Set_Diameter_1(double d) { m_Diameter_1.SetValue(d, CValue::ValueUnits::INCHES); }
 	void Set_Radius_1(double r) { m_Radius_1.SetValue(r, CValue::ValueUnits::INCHES); }

@@ -10,7 +10,7 @@ CResistor::~CResistor()
 
 void CResistor::SetValue(double value, ValueUnits vuUnits)
 {
-	if (HasValidUnit	s(vuUnits))
+	if (HasValidUnits(vuUnits))
 	{
 		CValue::SetState(ValueState::SET);
 		CValue::SetValue(value);
@@ -70,7 +70,7 @@ char* CResistor::GetString(CString& cS, ValueUnits vuUnits)
 			{
 				csFormat = _T("%0.3lf");
 			}
-			cS.Format(csFormat, GetValue());
+			cS.Format(csFormat, GetValue(vuUnits));
 			break;
 		}
 		pS = CT2A(cS);
@@ -80,5 +80,10 @@ char* CResistor::GetString(CString& cS, ValueUnits vuUnits)
 		cS.Empty();
 	}
 	return nullptr;
+}
+
+void CResistor::Print()
+{
+	printf("Resistor: %lf Ohms\n", GetValue(ValueUnits::OHMS));
 }
 

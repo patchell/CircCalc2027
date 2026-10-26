@@ -6,6 +6,22 @@
 class CDlgSuperHeterodynMixer : public CDialogEx
 {
 	DECLARE_DYNAMIC(CDlgSuperHeterodynMixer)
+	CEditCapacitor m_Edit_C1_Max;
+	CEditCapacitor m_Edit_C1_Min;
+	//    CEditParam m_Edit_C2_Max;
+	//    CEdit m_Edit_C2_Max;
+	CEditCapacitor m_Edit_C2_Max;
+	CEditCapacitor m_Edit_C2_Min;
+	CEditFrequency m_Edit_Tank_HighFrequency;
+	CEditFrequency m_Edit_IF_Frequency;
+	CEditInductor m_Edit_AntennaInductor;
+	CEditInductor m_Edit_LocalOscilatorInductor;
+	CEditCapacitor m_Edit_AntennaPadCapacitor;
+	CEditCapacitor	 m_Edit_LocalOscillatorPad;
+	CEditDouble m_Edit_MaxError;
+	CEditFrequency m_Edit_RangeLowFreq;
+
+	CPlot m_Static_ErrorPlot;
 
 public:
 	CDlgSuperHeterodynMixer(CWnd* pParent = nullptr);   // standard constructor
@@ -22,19 +38,4 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
     afx_msg void OnBnClickedButtonTankCalc();
-    CEditParam m_Edit_C1_Max;
-    CEditParam m_Edit_C1_Min;
-//    CEditParam m_Edit_C2_Max;
-//    CEdit m_Edit_C2_Max;
-    CEditParam m_Edit_C2_Max;
-    CEditParam m_Edit_C2_Min;
-    CEditParam m_Edit_Tank_HighFrequency;
-    CEditParam m_Edit_IF_Frequency;
-    CEditParam m_Edit_AntennaInductor;
-    CEditParam m_Edit_LocalOscilatorInductor;
-    CEditParam m_Edit_AntennaPadCapacitor;
-    CEditParam m_Edit_LocalOscillatorPad;
-    CEditParam m_Edit_MaxError;
-    CEditParam m_Edit_RangeLowFreq;
-    CPlot m_Static_ErrorPlot;
-};
+  };

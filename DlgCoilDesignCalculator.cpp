@@ -20,31 +20,14 @@ CDlgCoilDesignCalculator::~CDlgCoilDesignCalculator()
 
 void CDlgCoilDesignCalculator::UpdateControls()
 {
-	CString cS;
-
-	m_CoilCalculator.GetString(cS, CCoilCalculator::Param::DIAMETER_1);
-	m_Edit_Diameter1.SetWindowTextW(cS);
-
-	m_CoilCalculator.GetString(cS, CCoilCalculator::Param::RADIUS_1);
-	m_Edit_Radius_1.SetWindowTextW(cS);
-
-	m_CoilCalculator.GetString(cS, CCoilCalculator::Param::RADIUS_2);
-	m_Edit_Radius_2.SetWindowTextW(cS);
-
-	m_CoilCalculator.GetString(cS, CCoilCalculator::Param::COIL_LENGTH);
-	m_Edit_CoilLength.SetWindowTextW(cS);
-
-	m_CoilCalculator.GetString(cS, CCoilCalculator::Param::INDUCTANCE);
-	m_Edit_Inductance.SetWindowTextW(cS);
-
-	m_CoilCalculator.GetString(cS, CCoilCalculator::Param::TURNS);
-	m_Edit_Turns.SetWindowTextW(cS);
-
-	m_CoilCalculator.GetString(cS, CCoilCalculator::Param::TURNS_PER_INCH);
-	m_Edit_TurnsPerInch.SetWindowTextW(cS);
-
-	m_CoilCalculator.GetString(cS, CCoilCalculator::Param::WIRE_DIAMETER);
-	m_Edit_WireDiameter.SetWindowTextW(cS);
+	m_Edit_Diameter1.UpdateValue();;
+	m_Edit_Radius_1.UpdateValue();;
+	m_Edit_Radius_2.UpdateValue();;
+	m_Edit_CoilLength.UpdateValue();;
+	m_Edit_Inductance.UpdateValue();;
+	m_Edit_Turns.UpdateValue();;
+	m_Edit_TurnsPerInch.UpdateValue();;
+	m_Edit_WireDiameter.UpdateValue();;
 
 	HideRadius2Controls(!m_CoilCalculator.Get_MultiLayer());
 }
@@ -163,29 +146,29 @@ LRESULT CDlgCoilDesignCalculator::OnCoilParams(WPARAM wParam, LPARAM lParam)
 	switch (lParam)
 	{
 		case IDC_EDIT_COIL_RADIUS_1:
-			m_CoilCalculator.Set_Radius_1(m_Edit_Radius_1.GetValue());
+			m_CoilCalculator.Set_Radius_1(((CInches*)(m_Edit_Radius_1.GetValue()))->GetValue(CValue::ValueUnits::INCHES));
 			break;
 		case IDC_EDIT_COIL_RADIUS_2:
-			m_CoilCalculator.Set_Radius_2(m_Edit_Radius_2.GetValue());
+			m_CoilCalculator.Set_Radius_2(((CInches*)(m_Edit_Radius_2.GetValue()))->GetValue(CValue::ValueUnits::INCHES));
 			break;
 		case IDC_EDIT_COILCALC_WIRE_DIAMETER:
-			m_CoilCalculator.Set_WireDiameter(m_Edit_WireDiameter.GetValue());
+			m_CoilCalculator.Set_WireDiameter(((CInches*)(m_Edit_WireDiameter.GetValue()))->GetValue(CValue::ValueUnits::INCHES));
 			break;
 		case IDC_EDIT_COILCALC_INDUCTANCE:
-			m_CoilCalculator.Set_InductanceInMicroHenries(m_Edit_Inductance.GetValue());
+			m_CoilCalculator.Set_InductanceInMicroHenries(((CInductor*)(m_Edit_Inductance.GetValue()))->GetValue(CValue::ValueUnits::MICROHENRYS));
 			break;
 		case IDC_EDIT_COILCALC_LENGTH:
-			m_CoilCalculator.Set_CoilLength(m_Edit_CoilLength.GetValue());
+			m_CoilCalculator.Set_CoilLength(((CInches *)m_Edit_CoilLength.GetValue())->GetValue(CValue::ValueUnits::INCHES));
 			break;
 		case IDC_EDIT_COILCALC_TURNS:
-			m_CoilCalculator.Set_Turns(m_Edit_Turns.GetValue());
+			m_CoilCalculator.Set_Turns(((CTurns*)m_Edit_Turns.GetValue())->GetValue(CValue::ValueUnits::TURNS));
 			break;
 		case IDC_EDIT_COILCALC_TURNS_PER_INCH:
-			m_CoilCalculator.Set_TurnPerInch(m_Edit_TurnsPerInch.GetValue());
+			m_CoilCalculator.Set_TurnPerInch(((CTurnsPerInch*)m_Edit_TurnsPerInch.GetValue())->GetValue(CValue::ValueUnits::TURNS_PER_INCH));
 			break;
 		case IDC_EDIT_DIAMETER_1:
-			m_CoilCalculator.Set_Diameter_1(m_Edit_Diameter1.GetValue());
-			m_CoilCalculator.Set_Radius_1(m_Edit_Diameter1.GetValue() / 2.0);
+			m_CoilCalculator.Set_Diameter_1(((CInches*)m_Edit_Diameter1.GetValue())->GetValue(CValue::ValueUnits::INCHES));
+			m_CoilCalculator.Set_Radius_1(((CInches*)m_Edit_Diameter1.GetValue())->GetValue(CValue::ValueUnits::INCHES) / 2.0);
 			break;
 	}
 //	UpdateControls();
@@ -213,29 +196,29 @@ BOOL CDlgCoilDesignCalculator::OnInitDialog()
 	//-----------------------------------------------
 	// Initialize Edit Box Values
 	//-----------------------------------------------
-	m_Edit_Diameter1.SetWMMessage(WM_COIL_CALC);
 	m_Edit_Diameter1.SetName("Diameter1");
+	m_Edit_Diameter1.SetValue(m_CoilCalculator.Get_Diameter_1_Value(), CValue::ValueUnits::INCHES);
 	
-	m_Edit_Radius_1.SetWMMessage(WM_COIL_CALC);
 	m_Edit_Radius_1.SetName("Radius1");
+	m_Edit_Radius_1.SetValue(m_CoilCalculator.Get_Radius_1_Value(), CValue::ValueUnits::INCHES);
 
 	m_Edit_Radius_2.SetName("Radius2");
-	m_Edit_Radius_2.SetWMMessage(WM_COIL_CALC);
-
+	m_Edit_Radius_2.SetValue(m_CoilCalculator.Get_Radius_2_Value(), CValue::ValueUnits::INCHES);
+		
 	m_Edit_CoilLength.SetName("CoilLength");
-	m_Edit_CoilLength.SetWMMessage(WM_COIL_CALC);
-
+	m_Edit_CoilLength.SetValue(m_CoilCalculator.Get_CoilLength_Value(), CValue::ValueUnits::INCHES);
+		
 	m_Edit_Inductance.SetName("Inductance");
-	m_Edit_Inductance.SetWMMessage(WM_COIL_CALC);
+	m_Edit_Inductance.SetValue(m_CoilCalculator.Get_Inductance_Value(), CValue::ValueUnits::MICROHENRYS);
 
 	m_Edit_Turns.SetName("Turns");
-	m_Edit_Turns.SetWMMessage(WM_COIL_CALC);
+	m_Edit_Turns.SetValue(m_CoilCalculator.Get_Turns_Value(), CValue::ValueUnits::TURNS);
 
 	m_Edit_TurnsPerInch.SetName("TurnsPerInch");
-	m_Edit_TurnsPerInch.SetWMMessage(WM_COIL_CALC);
+	m_Edit_TurnsPerInch.SetValue(m_CoilCalculator.Get_TurnPerInch_Value(), CValue::ValueUnits::TURNS_PER_INCH);
 
 	m_Edit_WireDiameter.SetName("WireDiameter");
-	m_Edit_WireDiameter.SetWMMessage(WM_COIL_CALC);
+	m_Edit_WireDiameter.SetValue(m_CoilCalculator.Get_WireDiameter_Value(), CValue::ValueUnits::INCHES);
 
 	UpdateControls();
 	return TRUE;
@@ -246,7 +229,8 @@ void CDlgCoilDesignCalculator::OnSelchangeComboWireSize()
 	int Selection = m_Combo_WireDiameter.GetCurSel();
 	if (Selection >= 0 && Selection < 11)
 	{
-		m_Edit_WireDiameter.SetValue(WireDiameter[Selection]);
+		m_CoilCalculator.Set_WireDiameter(WireDiameter[Selection]);
+//		m_Edit_WireDiameter.SetValue(WireDiameter[Selection]);
 	}
 }
 

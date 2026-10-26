@@ -8,13 +8,13 @@ class CDlgCapacitiveReactance : public CDialogEx
 	DECLARE_DYNAMIC(CDlgCapacitiveReactance)
 
 	CCapacitiveReactance m_CapacitiveReactance;
-	CEditParam m_Edit_Capacitor;
-	CEditParam m_Edit_Resistor;
-	CEditParam m_Edit_RiseTime;
-	CEditParam m_Edit_CutOffFrequency;
-	CEditParam m_Edit_Frequency;
-	CEditParam m_Edit_TimeConstant;
-	CEditParam m_Edit_CapacitiveReactance;
+	CEditCapacitor m_Edit_Capacitor;	// edit box for capacitor value in pico farads
+	CEditResistor m_Edit_Resistor;		// edit box for series resistor value in ohms
+	CEditSeconds m_Edit_RiseTime;		// edit box for rise time in seconds
+	CEditFrequency m_Edit_CutOffFrequency;	// edit box for cut-off frequency in hertz
+	CEditFrequency m_Edit_Frequency;	// edit box for frequency in hertz
+	CEditSeconds m_Edit_TimeConstant;	// edit box for time constant in seconds
+	CEditCapacitiveReactance m_Edit_CapacitiveReactance;	// edit box for capacitive reactance in ohms
 public:
 	CDlgCapacitiveReactance(CWnd* pParent = nullptr);   // standard constructor
 	virtual ~CDlgCapacitiveReactance();
@@ -38,7 +38,6 @@ protected:
 	afx_msg void OnClickedButtonXcRisetimeClr();
 	afx_msg void OnClickedButtonXcTimeconstantClr();
 	afx_msg void OnClickedButtonCalcXc();
-	afx_msg LRESULT OnXc(WPARAM wParam, LPARAM lParam);
 public:
 	virtual BOOL OnInitDialog();
 };

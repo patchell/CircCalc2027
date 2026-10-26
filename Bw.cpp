@@ -8,7 +8,7 @@ CBw::~CBw()
 
 void CBw::SetValue(double value, ValueUnits vuUnits)
 {
-	if (HasValidUnits())
+	if (HasValidUnits(vuUnits))
 	{
 		CValue::SetValue(value);
 		SetState(ValueState::SET);

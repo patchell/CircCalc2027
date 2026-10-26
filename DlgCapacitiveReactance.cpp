@@ -40,7 +40,6 @@ BEGIN_MESSAGE_MAP(CDlgCapacitiveReactance, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_XC_RISETIME_CLR, &CDlgCapacitiveReactance::OnClickedButtonXcRisetimeClr)
 	ON_BN_CLICKED(IDC_BUTTON_XC_TIMECONSTANT_CLR, &CDlgCapacitiveReactance::OnClickedButtonXcTimeconstantClr)
 	ON_BN_CLICKED(IDC_BUTTON_CALC_XC, &CDlgCapacitiveReactance::OnClickedButtonCalcXc)
-	ON_MESSAGE(WM_XC, &CDlgCapacitiveReactance::OnXc)
 END_MESSAGE_MAP()
 
 
@@ -60,28 +59,15 @@ bool CDlgCapacitiveReactance::CalculateXc()
 
 void CDlgCapacitiveReactance::UpdateXcEditBoxes()
 {
-	CString s;
+	m_CapacitiveReactance.PrintValues();	// Debugging
 
-	m_CapacitiveReactance.GetCapacitanceString(s);
-	m_Edit_Capacitor.SetWindowTextW(s);
-
-	m_CapacitiveReactance.GetFrequencyString(s);
-	m_Edit_Frequency.SetWindowTextW(s);
-
-	m_CapacitiveReactance.GetXcString(s);
-	m_Edit_CapacitiveReactance.SetWindowTextW(s);
-
-	m_CapacitiveReactance.GetResistorString(s);
-	m_Edit_Resistor.SetWindowTextW(s);
-
-	m_CapacitiveReactance.GetTimeConstantString(s);
-	m_Edit_TimeConstant.SetWindowTextW(s);
-
-	m_CapacitiveReactance.GetRiseTimeString(s);
-	m_Edit_RiseTime.SetWindowTextW(s);
-
-	m_CapacitiveReactance.GetCutoffFreqString(s);
-	m_Edit_CutOffFrequency.SetWindowTextW(s);
+	m_Edit_Capacitor.UpdateValue();
+	m_Edit_Frequency.UpdateValue();
+	m_Edit_CapacitiveReactance.UpdateValue();
+	m_Edit_Resistor.UpdateValue();
+	m_Edit_TimeConstant.UpdateValue();
+	m_Edit_RiseTime.UpdateValue();
+	m_Edit_CutOffFrequency.UpdateValue();
 }
 
 void CDlgCapacitiveReactance::OnClickedButtonXcClrFreq()
@@ -135,70 +121,31 @@ void CDlgCapacitiveReactance::OnClickedButtonCalcXc()
 	}
 }
 
-LRESULT CDlgCapacitiveReactance::OnXc(WPARAM wParam, LPARAM lParam)
-{
-	//------------------------------------------------
-	// This message is sent from the Capacitive
-	// Reactance class.
-	// parameters:
-	// wParam = N.A.
-	// lParam = Edit Control ID
-	//------------------------------------------------
-	CString s;
-
-	switch (lParam)
-	{
-	case IDC_EDIT_XC_CAP:
-		m_CapacitiveReactance.Set_C_InPicoFarads(m_Edit_Capacitor.GetValue());
-		break;
-	case IDC_EDIT_XC_FREQ:
-		m_CapacitiveReactance.Set_Frequency(m_Edit_Frequency.GetValue());
-		break;
-	case IDC_EDIT_XC:
-		m_CapacitiveReactance.Set_Reactance(m_Edit_CapacitiveReactance.GetValue());
-		break;
-	case IDC_EDIT_XC_RESISTOR:
-		m_CapacitiveReactance.Set_Resistor(m_Edit_Resistor.GetValue());
-		break;
-	case IDC_EDIT_XC_RISETIME:
-		m_CapacitiveReactance.Set_RiseTime(m_Edit_RiseTime.GetValue());
-		break;
-	case IDC_EDIT_XC_TIMECONSTANT:
-		m_CapacitiveReactance.Set_TimeConstant(m_Edit_TimeConstant.GetValue());
-		break;
-	case IDC_EDIT_XC_CUTTOFF_FREQUENCY:
-		m_CapacitiveReactance.SetFc(m_Edit_CutOffFrequency.GetValue());
-		break;
-	}
-	return LRESULT();
-}
-
 BOOL CDlgCapacitiveReactance::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
 
-	m_Edit_CapacitiveReactance.SetWMMessage(WM_XC);
 	m_Edit_CapacitiveReactance.SetName("Xc");
+	m_Edit_CapacitiveReactance.SetValue(m_CapacitiveReactance.Get_Xc_Value(), CValue::ValueUnits::PICO_FARADS);
 
-	m_Edit_Capacitor.SetWMMessage(WM_XC);
 	m_Edit_Capacitor.SetName("C");
+	m_Edit_Capacitor.SetValue(m_CapacitiveReactance.Get_C_Value(), CValue::ValueUnits::PICO_FARADS);
 
-	m_Edit_CutOffFrequency.SetWMMessage(WM_XC);
 	m_Edit_CutOffFrequency.SetName("Fc");
+	m_Edit_CutOffFrequency.SetValue(m_CapacitiveReactance.Get_Fc_Value(), CValue::ValueUnits::HERTZ);
 
-	m_Edit_Frequency.SetWMMessage(WM_XC);
 	m_Edit_Frequency.SetName("F");
+	m_Edit_Frequency.SetValue(m_CapacitiveReactance.Get_F_Value(), CValue::ValueUnits::HERTZ);
 
-	m_Edit_RiseTime.SetWMMessage(WM_XC);
 	m_Edit_RiseTime.SetName("RiseTime");
+	m_Edit_RiseTime.SetValue(m_CapacitiveReactance.Get_RiseTime_Value(), CValue::ValueUnits::SECONDS);
 
-	m_Edit_Resistor.SetWMMessage(WM_XC);
 	m_Edit_Resistor.SetName("R");
+	m_Edit_Resistor.SetValue(m_CapacitiveReactance.Get_R_Value(), CValue::ValueUnits::OHMS);
 
-	m_Edit_TimeConstant.SetWMMessage(WM_XC);
 	m_Edit_TimeConstant.SetName("TC");
-
+	m_Edit_TimeConstant.SetValue(m_CapacitiveReactance.Get_TC_Value(), CValue::ValueUnits::SECONDS);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 }

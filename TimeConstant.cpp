@@ -62,7 +62,7 @@ char* CTimeConstant::GetString(CString& cS, ValueUnits vuUnits)
 		switch (vuUnits)
 		{
 		case ValueUnits::SECONDS:
-			value = GetValue();
+			value = GetValue(vuUnits);
 			break;
 		}
 		if (modf(value, NULL) == 0.0)
@@ -77,4 +77,9 @@ char* CTimeConstant::GetString(CString& cS, ValueUnits vuUnits)
 		cS.Empty();
 	}
 	return pS;
+}
+
+void CTimeConstant::Print()
+{
+	printf("Time Constant: %lf Seconds\n", GetValue(ValueUnits::SECONDS));
 }

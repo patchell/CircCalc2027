@@ -69,10 +69,10 @@ char* CCapacitor::GetString(CString& cS, ValueUnits vuUnits)
 		switch (vuUnits)
 		{
 		case ValueUnits::FARADS:
-			cS.Format(_T("%0.0lf"), GetValue());
+			cS.Format(_T("%0.0lf"), GetValue(ValueUnits::FARADS));
 			break;
 		case ValueUnits::PICO_FARADS:
-			cS.Format(_T("%0.0lf"), GetValue() * 1e12);
+			cS.Format(_T("%0.0lf"), GetValue(ValueUnits::PICO_FARADS));
 			break;
 		}
 		pS = CT2A(cS);
@@ -83,27 +83,7 @@ char* CCapacitor::GetString(CString& cS, ValueUnits vuUnits)
 	}
 	return pS;
 }
-/*
-void CCapacitor::SetValueInFarads(double value)
+void CCapacitor::Print()
 {
-	CValue::SetValue(value);
+	printf("Capacitor: %lf Farads\n", GetValue(ValueUnits::FARADS));
 }
-
-double CCapacitor::GetValueInFarads() const
-{
-    return CValue::GetValue();
-}
-
-double CCapacitor::GetValueInPicoFarads() const
-{
-	return CValue::GetValue() * 1e12;
-}
-
-char* CCapacitor::GetString(CString& cS) const
-{
-	if(IsSet())
-		cS.Format(_T("%12.0lf"), GetValueInPicoFarads());
-	else
-		cS.Empty();
-	return CT2A(cS);
-}*/

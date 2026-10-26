@@ -74,7 +74,7 @@ bool CResonant::CalculateC()
 	{
 		if(m_F.IsSet() && m_L.IsSet())
 		{
-			m_C.SetValueInFarads(ResonantCapacitance(Get_F(), Get_L()));
+			m_C.SetValue(ResonantCapacitance(Get_F(), Get_L()), CValue::ValueUnits::FARADS);
 			bChangeMade = true;
 		}
 	}
@@ -88,7 +88,7 @@ bool CResonant::CalculateL()
 	{
 		if(m_F.IsSet() && m_C.IsSet())
 		{
-			m_L.SetValueInHenrys(ResonantInductance(Get_F(), Get_C()));
+			m_L.SetValue(ResonantInductance(Get_F(), Get_C()), CValue::ValueUnits::HENRYS);
 			bChangeMade = true;
 		}
 	}
@@ -102,7 +102,7 @@ bool CResonant::CalculateXc()
 	{
 		if(m_F.IsSet() && m_C.IsSet())
 		{
-			m_Xc.SetValue(ResonantCapacitiveReactance(Get_F(), Get_C()));
+			m_Xc.SetValue(ResonantCapacitiveReactance(Get_F(), Get_C()), CValue::ValueUnits::OHMS);
 			bChangeMade = true;
 		}
 	}
@@ -116,7 +116,7 @@ bool CResonant::CalculateF()
 	{
 		if(m_C.IsSet() && m_L.IsSet())
 		{
-			m_F.SetValue(ResonantFrequency(Get_C(), Get_L()));
+			m_F.SetValue(ResonantFrequency(Get_C(), Get_L()), CValue::ValueUnits::HERTZ);
 			bChangeMade = true;
 		}
 	}
@@ -130,7 +130,7 @@ bool CResonant::CalculateXl()
 	{
 		if(m_F.IsSet() && m_L.IsSet())
 		{
-			m_Xl.SetValue(ResonantInductiveReactance(Get_F(), Get_L()));
+			m_Xl.SetValue(ResonantInductiveReactance(Get_F(), Get_L()), CValue::ValueUnits::OHMS);
 			bChangeMade = true;
 		}
 	}
@@ -144,7 +144,7 @@ bool CResonant::CalculateR()
 	{
 		if(m_Q.IsSet() && m_L.IsSet() && m_C.IsSet())
 		{
-			m_R.SetValue(DampingResistance(Get_Q(), Get_L(), Get_C()));
+			m_R.SetValue(DampingResistance(Get_Q(), Get_L(), Get_C()), CValue::ValueUnits::OHMS);
 			bChangeMade = true;
 		}
 	}
@@ -159,23 +159,23 @@ bool CResonant::CalculateQ()
 	{
 		if (m_R.IsSet() && m_L.IsSet() && m_C.IsSet())
 		{
-			m_Q.SetValue(ResonantQualityFactor(Get_R(), Get_L(), Get_C()));
+			m_Q.SetValue(ResonantQualityFactor(Get_R(), Get_L(), Get_C()), CValue::ValueUnits::NONE);
 			bChangeMade = true;
 		}
 		else if(m_F.IsSet() && m_BW.IsSet())
 		{
-			m_Q.SetValue(Get_F() / Get_BW());
+			m_Q.SetValue(Get_F() / Get_BW(), CValue::ValueUnits::NONE);
 			bChangeMade = true;
 		}
 		else if(m_C.IsSet() && m_L.IsSet() && m_BW.IsSet())
 		{
 			double R = 1.0 / (Get_BW() * Get_C());
-			m_Q.SetValue(ResonantQualityFactor(R, Get_L(), Get_C()));
+			m_Q.SetValue(ResonantQualityFactor(R, Get_L(), Get_C()), CValue::ValueUnits::NONE);
 			bChangeMade = true;
 		}
 		else if(m_C.IsSet() && m_L.IsSet() && m_R.IsSet())
 		{
-			m_Q.SetValue(ResonantQualityFactor(Get_R(), Get_L(), Get_C()));
+			m_Q.SetValue(ResonantQualityFactor(Get_R(), Get_L(), Get_C()), CValue::ValueUnits::NONE);
 			bChangeMade = true;
 		}
 	}
@@ -189,7 +189,7 @@ bool CResonant::CalculateBW()
 	{
 		if(m_R.IsSet() && m_L.IsSet())
 		{
-			m_BW.SetValue(ResonantBandwidth(Get_R(), Get_L(), Get_C()));
+			m_BW.SetValue(ResonantBandwidth(Get_R(), Get_L(), Get_C()), CValue::ValueUnits::HERTZ);
 			bChangeMade = true;
 		}
 	}
