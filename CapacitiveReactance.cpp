@@ -55,12 +55,10 @@ bool CCapacitiveReactance::Calculate()
 			nChanges++;
 		}
 		
-		if(nChanges == nLastChanges)
+		if(nChanges == 0)
 			bLoop = false;
-		
-		nLastChanges = nChanges;
-		nChanges = 0;
-		
+		else
+			nChanges = 0;
 	}
 
 	return bChangeMade;
@@ -101,9 +99,18 @@ bool CCapacitiveReactance::CalculateXc()
 
 	if(m_Xc.IsNotSet())
 	{
+		if(m_C.IsSet())
+			printf("\t\tC is set\n");
+		else
+			printf("\t\tC is NOT set\n");
+		if (m_F.IsSet())
+			printf("\t\tF is set\n");
+		else
+			printf("\t\tF is NOT set\n");
 		if(m_C.IsSet() && m_F.IsSet())
 		{
 			m_Xc.SetValue(CalculateReactance(Get_C(CValue::ValueUnits::FARADS), Get_F(CValue::ValueUnits::HERTZ)), CValue::ValueUnits::OHMS);
+			m_Xc.SetState(CValue::ValueState::SET);
 			bChangeMade = true;
 		}
 	}
@@ -119,6 +126,7 @@ bool CCapacitiveReactance::CalculateR()
 		if(m_Fc.IsSet() && m_C.IsSet())
 		{
 			m_R.SetValue(CalculateResistor(Get_Fc(CValue::ValueUnits::HERTZ), Get_C(CValue::ValueUnits::FARADS)), CValue::ValueUnits::OHMS);
+			m_R.SetState(CValue::ValueState::SET);
 			bChangeMade = true;
 		}
 	}
@@ -134,6 +142,7 @@ bool CCapacitiveReactance::CalculateTC()
 		if(m_R.IsSet() && m_C.IsSet())
 		{
 			m_TC.SetValue(CalculateTimeConstant(Get_R(CValue::ValueUnits::OHMS), Get_C(CValue::ValueUnits::FARADS)), CValue::ValueUnits::SECONDS);
+			m_TC.SetState(CValue::ValueState::SET);
 			bChangeMade = true;
 		}
 	}
@@ -152,6 +161,7 @@ bool CCapacitiveReactance::CalculateRt()
 		if(m_TC.IsSet())
 		{
 			m_RiseTime.SetValue(CalculateRiseTime(Get_TC(CValue::ValueUnits::SECONDS)), CValue::ValueUnits::SECONDS);
+			m_RiseTime.SetState(CValue::ValueState::SET);
 			bChangeMade = true;
 		}
 		else if (m_TC.IsNotSet())
@@ -159,7 +169,9 @@ bool CCapacitiveReactance::CalculateRt()
 			if(m_R.IsSet() && m_C.IsSet())
 			{
 				m_TC.SetValue(CalculateTimeConstant(Get_R(CValue::ValueUnits::OHMS), Get_C(CValue::ValueUnits::FARADS)), CValue::ValueUnits::SECONDS);
+				m_TC.SetState(CValue::ValueState::SET);
 				m_RiseTime.SetValue(CalculateRiseTime(Get_TC(CValue::ValueUnits::SECONDS)), CValue::ValueUnits::SECONDS);
+				m_RiseTime.SetState(CValue::ValueState::SET);
 				bChangeMade = true;
 			}
 		}
@@ -176,6 +188,7 @@ bool CCapacitiveReactance::CalculateFc()
 		if(m_TC.IsSet())
 		{
 			m_Fc.SetValue(CalculateFc(Get_TC(CValue::ValueUnits::SECONDS)), CValue::ValueUnits::HERTZ);
+			m_Fc.SetState(CValue::ValueState::SET);
 			bChangeMade = true;
 		}
 		else if (m_TC.IsNotSet())
@@ -183,7 +196,9 @@ bool CCapacitiveReactance::CalculateFc()
 			if(m_R.IsSet() && m_C.IsSet())
 			{
 				m_TC.SetValue(CalculateTimeConstant(Get_R(CValue::ValueUnits::OHMS), Get_C(CValue::ValueUnits::FARADS)), CValue::ValueUnits::SECONDS);
+				m_TC.SetState(CValue::ValueState::SET);
 				m_Fc.SetValue(CalculateFc(Get_TC(CValue::ValueUnits::SECONDS)), CValue::ValueUnits::HERTZ);
+				m_Fc.SetState(CValue::ValueState::SET);
 				bChangeMade = true;
 			}
 		}

@@ -20,12 +20,12 @@ CDlgResonantLRC::~CDlgResonantLRC()
 
 void CDlgResonantLRC::UpdateControls()
 {
-	m_Edit_Capacitor.UpdateValue();
-	m_Edit_CenterFrequency.UpdateValue();
-	m_Edit_Inductor.UpdateValue();
-	m_Edit_BandWidth.UpdateValue();
-	m_Edit_Q.UpdateValue();
-	m_Edit_Resistor.UpdateValue();
+	m_Edit_Capacitor.UpdateText();
+	m_Edit_CenterFrequency.UpdateText();
+	m_Edit_Inductor.UpdateText();
+	m_Edit_BandWidth.UpdateText();
+	m_Edit_Q.UpdateText();
+	m_Edit_Resistor.UpdateText();
 }
 
 void CDlgResonantLRC::DoDataExchange(CDataExchange* pDX)

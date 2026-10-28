@@ -13,7 +13,6 @@ void CTimeConstant::SetValue(double value, ValueUnits vuUnits)
 {
 	if (HasValidUnits(vuUnits))
 	{
-		CValue::SetState(ValueState::SET);
 		CValue::SetValue(value);
 	}
 	else
@@ -29,6 +28,7 @@ bool CTimeConstant::HasValidUnits(ValueUnits vuUnits)
 	switch (vuUnits)
 	{
 		case ValueUnits::SECONDS:
+		case ValueUnits::MICROSECONDS:
 			bUnitsAreValid = true;
 			break;
 	}
@@ -44,6 +44,7 @@ double CTimeConstant::GetValue(ValueUnits vuUnits)
 		switch (vuUnits)
 		{
 		case ValueUnits::SECONDS:
+		case ValueUnits::MICROSECONDS:
 			value = CValue::GetValue();
 			break;
 		}
@@ -51,11 +52,12 @@ double CTimeConstant::GetValue(ValueUnits vuUnits)
 	return value;
 }
 
-char* CTimeConstant::GetString(CString& cS, ValueUnits vuUnits)
+bool CTimeConstant::GetString(CString& cS, ValueUnits vuUnits)
 {
 	double value = 0.0;
-	char* pS = nullptr;
 	CString csFormat;
+	double dbIntPart = 0.0;
+	bool bItsCoolDude = false;
 
 	if (IsSet() && HasValidUnits(vuUnits))
 	{
@@ -63,23 +65,27 @@ char* CTimeConstant::GetString(CString& cS, ValueUnits vuUnits)
 		{
 		case ValueUnits::SECONDS:
 			value = GetValue(vuUnits);
+			bItsCoolDude = true;
+			break;
+		case ValueUnits::MICROSECONDS:
+			value = GetValue(vuUnits) * 1e6;
+			bItsCoolDude = true;
 			break;
 		}
-		if (modf(value, NULL) == 0.0)
-			cS.Format(_T("%0.0lf"), value);
+		if (modf(value, &dbIntPart) == 0.0)
+			csFormat.Format(_T("%0.0lf"), value);
 		else
 			csFormat.Format(_T("%0.3lf"), value);
 		cS.Format(csFormat, value);
-		pS = CT2A(cS);
 	}
 	else
 	{
 		cS.Empty();
 	}
-	return pS;
+	return bItsCoolDude;
 }
 
 void CTimeConstant::Print()
 {
-	printf("Time Constant: %lf Seconds\n", GetValue(ValueUnits::SECONDS));
+	printf("\tTime Constant: %lf Seconds\n", GetValue(ValueUnits::SECONDS));
 }

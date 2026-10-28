@@ -25,25 +25,10 @@ BEGIN_MESSAGE_MAP(CEditSeconds, CEdit)
 END_MESSAGE_MAP()
 
 
-
-void CEditSeconds::SetValue(CValue* pcvValue, CValue::ValueUnits Units)
-{
-	// TODO: Add your implementation code here
-}
-
 void CEditSeconds::ConvertUnits(CValue::ValueUnits Units)
 {
 	// TODO: Add your implementation code here
 }
-
-void CEditSeconds::UpdateText()
-{
-	// TODO: Add your implementation code here
-}
-
-void CEditSeconds::UpdateValue()
-{}
-
 
 // CEditSeconds message handlers
 
@@ -51,14 +36,15 @@ void CEditSeconds::UpdateValue()
 
 void CEditSeconds::OnEnChange()
 {
+	CEditParam::OnEnChange();
 }
 
 void CEditSeconds::OnEnKillfocus()
 {
-	// TODO: Add your control notification handler code here
+	CEditParam::OnEnKillfocus();	
 }
 
 void CEditSeconds::OnEnSetfocus()
 {
-	// TODO: Add your control notification handler code here
+	CEditParam::OnEnSetfocus();
 }

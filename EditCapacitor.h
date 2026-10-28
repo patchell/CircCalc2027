@@ -6,16 +6,13 @@
 class CEditCapacitor : public CEditParam
 {
 	DECLARE_DYNAMIC(CEditCapacitor)
-	//-----------------------------------
-	// Pure Virtual Functions
-	//-----------------------------------
-	virtual void SetValue(CValue* pcvValue, CValue::ValueUnits Units);
-	virtual void ConvertUnits(CValue::ValueUnits Units);
-	virtual void UpdateText();
-	virtual void UpdateValue();
 public:
 	CEditCapacitor();
 	virtual ~CEditCapacitor();
+	//-----------------------------------
+	// Pure Virtual Functions
+	//-----------------------------------
+	virtual void ConvertUnits(CValue::ValueUnits Units);
 
 protected:
 	DECLARE_MESSAGE_MAP()

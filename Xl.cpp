@@ -46,11 +46,12 @@ double CXl::GetValue(ValueUnits vuUnits)
 	return value;
 }
 
-char* CXl::GetString(CString& cS, ValueUnits vuUnits)
+bool CXl::GetString(CString& cS, ValueUnits vuUnits)
 {
 	double value = 0.0;
 	CString csFormat;
-	char* pS = NULL;
+	double dbIntPart = 0.0;
+	bool bItsCoolDude = false;
 
 	if (HasValidUnits(vuUnits) && IsSet())
 	{
@@ -58,16 +59,16 @@ char* CXl::GetString(CString& cS, ValueUnits vuUnits)
 		switch (vuUnits)
 		{
 		case ValueUnits::OHMS:
-			if (modf(value, NULL) == 0.0)
+			if (modf(value, &dbIntPart) == 0.0)
 				csFormat = _T("%0.0lf");
 			else
 				csFormat = _T("%0.3lf");
 			cS.Format(csFormat, value);
-			pS = CT2A(cS);
+			bItsCoolDude = true;
 			break;
 		}
 	}
 	else
 		cS.Empty();
-	return pS;
+	return bItsCoolDude;
 }

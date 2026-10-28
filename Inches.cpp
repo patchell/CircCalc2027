@@ -16,7 +16,6 @@ void CInches::SetValue(double value, ValueUnits vuUnits)
 		{
 		case ValueUnits::INCHES:
 			CValue::SetValue(value);
-			SetState(ValueState::SET);
 			break;
 		}
 	}
@@ -54,23 +53,22 @@ double CInches::GetValue(ValueUnits vuUnits)
 	return value;
 }
 
-char* CInches::GetString(CString& cS, ValueUnits vuUnits)
+bool CInches::GetString(CString& cS, ValueUnits vuUnits)
 {
-	char* pS = nullptr;
-
+	bool bItsCoolDude = false;
 	if (IsSet() && HasValidUnits(vuUnits))
 	{
 		switch (vuUnits)
 		{
 		case ValueUnits::INCHES:
 			cS.Format(_T("%0.3lf"), GetValue(vuUnits));
+			bItsCoolDude = true;
 			break;
 		}
-		pS = CT2A(cS);
 	}
 	else
 	{
 		cS.Empty();
 	}
-	return pS;
+	return bItsCoolDude;
 }

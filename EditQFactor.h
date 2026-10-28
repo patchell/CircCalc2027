@@ -3,7 +3,7 @@
 
 // CEditQFactor
 
-class CEditQFactor : public CEdit
+class CEditQFactor : public CEditParam
 {
 	DECLARE_DYNAMIC(CEditQFactor)
 
@@ -13,11 +13,7 @@ public:
 	//-----------------------------------
 	// Pure Virtual Functions
 	//-----------------------------------
-	virtual void SetValue(CValue* pcvValue, CValue::ValueUnits Units);
 	virtual void ConvertUnits(CValue::ValueUnits Units);
-	virtual void UpdateText();
-	virtual void UpdateValue();
-
 protected:
 	DECLARE_MESSAGE_MAP()
 public:

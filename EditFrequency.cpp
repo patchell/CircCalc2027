@@ -25,33 +25,23 @@ BEGIN_MESSAGE_MAP(CEditFrequency, CEdit)
 END_MESSAGE_MAP()
 
 
+void CEditFrequency::ConvertUnits(CValue::ValueUnits Units)
+{
+}
 
 // CEditFrequency message handlers
 
-
-
-void CEditFrequency::SetValue(CValue* pcvValue, CValue::ValueUnits Units)
-{}
-
-void CEditFrequency::ConvertUnits(CValue::ValueUnits Units)
-{}
-
-void CEditFrequency::UpdateText()
-{}
-
-void CEditFrequency::UpdateValue()
-{}
-
 void CEditFrequency::OnEnChange()
 {
+	CEditParam::OnEnChange();
 }
 
 void CEditFrequency::OnEnKillfocus()
 {
-	// TODO: Add your control notification handler code here
+	CEditParam::OnEnKillfocus();
 }
 
 void CEditFrequency::OnEnSetfocus()
 {
-	// TODO: Add your control notification handler code here
+	CEditParam::OnEnSetfocus();
 }

@@ -11,6 +11,6 @@ public:
 	void SetValue(double value, ValueUnits vuUnits) override;
 	bool HasValidUnits(ValueUnits vuUnits) override;
 	double GetValue(ValueUnits vuUnits) override;
-	char* GetString(CString& cS, ValueUnits vuUnits) override;
+	bool GetString(CString& cS, ValueUnits vuUnits) override;
 };
 

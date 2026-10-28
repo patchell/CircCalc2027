@@ -26,43 +26,24 @@ END_MESSAGE_MAP()
 
 
 
-// CEditCapacitiveReactance message handlers
-
-
-void CEditCapacitiveReactance::SetValue(CValue* pcvValue, CValue::ValueUnits Units)
-{
-	// TODO: Add your implementation code here
-}
-
 void CEditCapacitiveReactance::ConvertUnits(CValue::ValueUnits Units)
 {
-	// TODO: Add your implementation code here
 }
 
-void CEditCapacitiveReactance::UpdateText()
-{
-	// TODO: Add your implementation code here
-}
 
-void CEditCapacitiveReactance::UpdateValue()
-{}
+// CEditCapacitiveReactance message handlers
 
 void CEditCapacitiveReactance::OnEnChange()
 {
-    // TODO:  If this is a RICHEDIT control, the control will not
-    // send this notification unless you override the CEdit::OnInitDialog()
-    // function and call CRichEditCtrl().SetEventMask()
-    // with the ENM_CHANGE flag ORed into the mask.
-
-    // TODO:  Add your control notification handler code here
+	CEditParam::OnEnChange();
 }
 
 void CEditCapacitiveReactance::OnEnKillfocus()
 {
-	// TODO: Add your control notification handler code here
+	CEditParam::OnEnKillfocus();
 }
 
 void CEditCapacitiveReactance::OnEnSetfocus()
 {
-	// TODO: Add your control notification handler code here
+	CEditParam::OnEnSetfocus();
 }

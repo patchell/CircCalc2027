@@ -21,7 +21,8 @@ public:
 		TURNS,
 		TURNS_PER_INCH,
 		HERTZ,
-		SECONDS
+		SECONDS,
+		MICROSECONDS
 	};
 private:
 	ValueState m_ValueState;
@@ -37,7 +38,7 @@ public:
 	virtual void SetValue(double value, ValueUnits vuUnits) = 0;
 	virtual bool HasValidUnits(ValueUnits vuUnits) = 0;
 	virtual double GetValue(ValueUnits vuUnits) = 0;
-	virtual char* GetString(CString& cS, ValueUnits vuUnits) = 0;
+	virtual bool GetString(CString& cS, ValueUnits vuUnits) = 0;
 	//-----------------------------------
 	virtual void SetState(ValueState state) { m_ValueState = state; }
 	virtual ValueState GetState() const { return m_ValueState; };

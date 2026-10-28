@@ -11,7 +11,7 @@ public:
 	virtual void SetValue(double value, ValueUnits vuUnits) override;
 	virtual bool HasValidUnits(ValueUnits vuUnits) override;
 	virtual double GetValue(ValueUnits vuUnits) override;
-	virtual char* GetString(CString& cS, ValueUnits vuUnits) override;
+	virtual bool GetString(CString& cS, ValueUnits vuUnits) override;
 	//-----------------------------------
 	void Print();
 };

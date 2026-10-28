@@ -56,13 +56,13 @@ public:
 	void Set_Rt(double Rt) { m_Rt.SetValue(Rt, CValue::ValueUnits::SECONDS); }
 	void Set_Tc(double Tc) { m_Tc.SetValue(Tc, CValue::ValueUnits::SECONDS); }
 	//--------------------------------
-	char* Get_L_String(CString& cS, CValue::ValueUnits VU) { return m_L.GetString(cS, VU); }
-	char* Get_F_String(CString& cS, CValue::ValueUnits VU) { return m_F.GetString(cS, VU); }
-	char* Get_Xl_String(CString& cS, CValue::ValueUnits VU) { return m_Xl.GetString(cS, VU); }
-	char* Get_R_String(CString& cS, CValue::ValueUnits VU) { return m_R.GetString(cS, VU); }
-	char* Get_Fc_String(CString& cS, CValue::ValueUnits VU) { return m_Fc.GetString(cS, VU); }
-	char* Get_Rt_String(CString& cS, CValue::ValueUnits VU) { return m_Rt.GetString(cS, VU); }
-	char* Get_Tc_String(CString& cS, CValue::ValueUnits VU) { return m_Tc.GetString(cS, VU); }
+	bool Get_L_String(CString& cS, CValue::ValueUnits VU) { return m_L.GetString(cS, VU); }
+	bool Get_F_String(CString& cS, CValue::ValueUnits VU) { return m_F.GetString(cS, VU); }
+	bool Get_Xl_String(CString& cS, CValue::ValueUnits VU) { return m_Xl.GetString(cS, VU); }
+	bool Get_R_String(CString& cS, CValue::ValueUnits VU) { return m_R.GetString(cS, VU); }
+	bool Get_Fc_String(CString& cS, CValue::ValueUnits VU) { return m_Fc.GetString(cS, VU); }
+	bool Get_Rt_String(CString& cS, CValue::ValueUnits VU) { return m_Rt.GetString(cS, VU); }
+	bool Get_Tc_String(CString& cS, CValue::ValueUnits VU) { return m_Tc.GetString(cS, VU); }
 
 	//--------------------------------
 	void Clr_L() { m_L.Clr(); }

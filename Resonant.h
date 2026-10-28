@@ -63,14 +63,14 @@ public:
 	CQ* Get_Q_Value() { return &m_Q; }
 	CBw* Get_BW_Value() { return &m_BW; }
 	//--------------------------------
-	char* Get_C_String(CString& cS, CValue::ValueUnits VU) { return m_C.GetString(cS, VU); }
-	char* Get_L_String(CString& cS, CValue::ValueUnits VU) { return m_L.GetString(cS, VU); }
-	char* Get_F_String(CString& cS, CValue::ValueUnits VU) { return m_F.GetString(cS, VU); }
-	char* Get_Xc_String(CString& cS, CValue::ValueUnits VU) { return m_Xc.GetString(cS, VU); }
-	char* Get_Xl_String(CString& cS, CValue::ValueUnits VU) { return m_Xl.GetString(cS, VU); }
-	char* Get_R_String(CString& cS, CValue::ValueUnits VU) { return m_R.GetString(cS, VU); }
-	char* Get_Q_String(CString& cS, CValue::ValueUnits VU) { return m_Q.GetString(cS, VU); }
-	char* Get_BW_String(CString& cS, CValue::ValueUnits VU) { return m_BW.GetString(cS, VU); }
+	bool Get_C_String(CString& cS, CValue::ValueUnits VU) { return m_C.GetString(cS, VU); }
+	bool Get_L_String(CString& cS, CValue::ValueUnits VU) { return m_L.GetString(cS, VU); }
+	bool Get_F_String(CString& cS, CValue::ValueUnits VU) { return m_F.GetString(cS, VU); }
+	bool Get_Xc_String(CString& cS, CValue::ValueUnits VU) { return m_Xc.GetString(cS, VU); }
+	bool Get_Xl_String(CString& cS, CValue::ValueUnits VU) { return m_Xl.GetString(cS, VU); }
+	bool Get_R_String(CString& cS, CValue::ValueUnits VU) { return m_R.GetString(cS, VU); }
+	bool Get_Q_String(CString& cS, CValue::ValueUnits VU) { return m_Q.GetString(cS, VU); }
+	bool Get_BW_String(CString& cS, CValue::ValueUnits VU) { return m_BW.GetString(cS, VU); }
 	//--------------------------------
 	void Clr_C() { m_C.Clr(); }
 	void Clr_L() { m_L.Clr(); }

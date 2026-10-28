@@ -15,11 +15,9 @@ void CInductor::SetValue(double value, ValueUnits vuUnits)
 		switch (vuUnits)
 		{
 		case ValueUnits::HENRYS:
-			CValue::SetState(ValueState::SET);
 			CValue::SetValue(value);
 			break;
 		case ValueUnits::MICROHENRYS:
-			CValue::SetState(ValueState::SET);
 			CValue::SetValue(value * 1.0e-6);
 			break;
 		}
@@ -63,26 +61,26 @@ double CInductor::GetValue(ValueUnits vuUnits)
 	return value;
 }
 
-char* CInductor::GetString(CString& cS, ValueUnits vuUnits)
+bool CInductor::GetString(CString& cS, ValueUnits vuUnits)
 {
-	char* pS = nullptr;
-
+	bool bItsCoolDude = false;
 	if (IsSet() && HasValidUnits(vuUnits))
 	{
 		switch (vuUnits)
 		{
 		case ValueUnits::HENRYS:
 			cS.Format(_T("%0.6lf"), GetValue(vuUnits));
+			bItsCoolDude = true;
 			break;
 		case ValueUnits::MICROHENRYS:
 			cS.Format(_T("%0.0lf"), GetValue(vuUnits));
+			bItsCoolDude = true;
 			break;
 		}
-		pS = CT2A(cS);
 	}
 	else
 	{
 		cS.Empty();
 	}
-	return pS;
+	return bItsCoolDude;
 }

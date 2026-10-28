@@ -19,18 +19,9 @@ CEditDouble::~CEditDouble()
 {
 }
 
-void CEditDouble::SetValue(CValue* pcvValue, CValue::ValueUnits Units)
-{}
-
 void CEditDouble::ConvertUnits(CValue::ValueUnits Units)
-{}
-
-void CEditDouble::UpdateText()
-{}
-
-void CEditDouble::UpdateValue()
-{}
-
+{
+}
 
 BEGIN_MESSAGE_MAP(CEditDouble, CEdit)
     ON_CONTROL_REFLECT(EN_CHANGE, &CEditDouble::OnEnChange)
@@ -46,20 +37,15 @@ END_MESSAGE_MAP()
 
 void CEditDouble::OnEnChange()
 {
-    // TODO:  If this is a RICHEDIT control, the control will not
-    // send this notification unless you override the CEdit::OnInitDialog()
-    // function and call CRichEditCtrl().SetEventMask()
-    // with the ENM_CHANGE flag ORed into the mask.
-
-    // TODO:  Add your control notification handler code here
+//	UpdateValue();
 }
 
 void CEditDouble::OnEnKillfocus()
 {
-	// TODO: Add your control notification handler code here
+//	GetValuePtr()->SetState(CValue::ValueState::SET);
 }
 
 void CEditDouble::OnEnSetfocus()
 {
-	// TODO: Add your control notification handler code here
+//	GetValuePtr()->SetState(CValue::ValueState::UPDATE);
 }

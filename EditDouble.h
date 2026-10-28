@@ -14,10 +14,7 @@ public:
 	//-----------------------------------
 	// Pure Virtual Functions
 	//-----------------------------------
-	virtual void SetValue(CValue* pcvValue, CValue::ValueUnits Units);
 	virtual void ConvertUnits(CValue::ValueUnits Units);
-	virtual void UpdateText();
-	virtual void UpdateValue();
 
 protected:
 	DECLARE_MESSAGE_MAP()

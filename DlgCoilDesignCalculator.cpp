@@ -77,8 +77,6 @@ BEGIN_MESSAGE_MAP(CDlgCoilDesignCalculator, CDialogEx)
 	ON_BN_CLICKED(IDC_CHECK_COILCALC_MULTILAYER, &CDlgCoilDesignCalculator::OnClickedCheckCoilcalcMultilayer)
 	//---------------------------------------------
 	ON_CBN_SELCHANGE(IDC_COMBO_WIRE_SIZE, &CDlgCoilDesignCalculator::OnSelchangeComboWireSize)
-	//---------------------------------------------
-	ON_MESSAGE(WM_COIL_CALC, &CDlgCoilDesignCalculator::OnCoilParams)
 END_MESSAGE_MAP()
 
 
@@ -139,42 +137,6 @@ void CDlgCoilDesignCalculator::OnClickedCheckCoilcalcMultilayer()
 	}
 	HideRadius2Controls(!m_CoilCalculator.Get_MultiLayer());
 }
-
-LRESULT CDlgCoilDesignCalculator::OnCoilParams(WPARAM wParam, LPARAM lParam)
-{
-	printf("OnCoilParams: wParam=%d  lParam=%d\n", (int)wParam, (int)lParam);
-	switch (lParam)
-	{
-		case IDC_EDIT_COIL_RADIUS_1:
-			m_CoilCalculator.Set_Radius_1(((CInches*)(m_Edit_Radius_1.GetValue()))->GetValue(CValue::ValueUnits::INCHES));
-			break;
-		case IDC_EDIT_COIL_RADIUS_2:
-			m_CoilCalculator.Set_Radius_2(((CInches*)(m_Edit_Radius_2.GetValue()))->GetValue(CValue::ValueUnits::INCHES));
-			break;
-		case IDC_EDIT_COILCALC_WIRE_DIAMETER:
-			m_CoilCalculator.Set_WireDiameter(((CInches*)(m_Edit_WireDiameter.GetValue()))->GetValue(CValue::ValueUnits::INCHES));
-			break;
-		case IDC_EDIT_COILCALC_INDUCTANCE:
-			m_CoilCalculator.Set_InductanceInMicroHenries(((CInductor*)(m_Edit_Inductance.GetValue()))->GetValue(CValue::ValueUnits::MICROHENRYS));
-			break;
-		case IDC_EDIT_COILCALC_LENGTH:
-			m_CoilCalculator.Set_CoilLength(((CInches *)m_Edit_CoilLength.GetValue())->GetValue(CValue::ValueUnits::INCHES));
-			break;
-		case IDC_EDIT_COILCALC_TURNS:
-			m_CoilCalculator.Set_Turns(((CTurns*)m_Edit_Turns.GetValue())->GetValue(CValue::ValueUnits::TURNS));
-			break;
-		case IDC_EDIT_COILCALC_TURNS_PER_INCH:
-			m_CoilCalculator.Set_TurnPerInch(((CTurnsPerInch*)m_Edit_TurnsPerInch.GetValue())->GetValue(CValue::ValueUnits::TURNS_PER_INCH));
-			break;
-		case IDC_EDIT_DIAMETER_1:
-			m_CoilCalculator.Set_Diameter_1(((CInches*)m_Edit_Diameter1.GetValue())->GetValue(CValue::ValueUnits::INCHES));
-			m_CoilCalculator.Set_Radius_1(((CInches*)m_Edit_Diameter1.GetValue())->GetValue(CValue::ValueUnits::INCHES) / 2.0);
-			break;
-	}
-//	UpdateControls();
-    return TRUE;
-}
-
 
 BOOL CDlgCoilDesignCalculator::OnInitDialog()
 {

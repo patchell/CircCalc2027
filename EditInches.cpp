@@ -13,22 +13,13 @@ CEditInches::CEditInches()
 
 }
 
-void CEditInches::SetValue(CValue* pcvValue, CValue::ValueUnits Units)
-{}
-
-void CEditInches::ConvertUnits(CValue::ValueUnits Units)
-{}
-
-void CEditInches::UpdateText()
-{}
-
-void CEditInches::UpdateValue()
-{}
-
 CEditInches::~CEditInches()
 {
 }
 
+void CEditInches::ConvertUnits(CValue::ValueUnits Units)
+{
+}
 
 BEGIN_MESSAGE_MAP(CEditInches, CEditParam)
     ON_CONTROL_REFLECT(EN_CHANGE, &CEditInches::OnEnChange)
@@ -44,14 +35,15 @@ END_MESSAGE_MAP()
 
 void CEditInches::OnEnChange()
 {
+	CEditParam::OnEnChange();
 }
 
 void CEditInches::OnEnKillfocus()
 {
-	// TODO: Add your control notification handler code here
+	CEditParam::OnEnKillfocus();
 }
 
 void CEditInches::OnEnSetfocus()
 {
-	// TODO: Add your control notification handler code here
+	CEditParam::OnEnSetfocus();
 }

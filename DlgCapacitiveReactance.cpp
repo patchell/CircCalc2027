@@ -50,10 +50,6 @@ bool CDlgCapacitiveReactance::CalculateXc()
 	bool Flag = false;
 
 	Flag = m_CapacitiveReactance.Calculate();
-	if (Flag)
-	{
-		UpdateXcEditBoxes();
-	}
 	return Flag;
 }
 
@@ -61,13 +57,13 @@ void CDlgCapacitiveReactance::UpdateXcEditBoxes()
 {
 	m_CapacitiveReactance.PrintValues();	// Debugging
 
-	m_Edit_Capacitor.UpdateValue();
-	m_Edit_Frequency.UpdateValue();
-	m_Edit_CapacitiveReactance.UpdateValue();
-	m_Edit_Resistor.UpdateValue();
-	m_Edit_TimeConstant.UpdateValue();
-	m_Edit_RiseTime.UpdateValue();
-	m_Edit_CutOffFrequency.UpdateValue();
+	m_Edit_Capacitor.UpdateText();
+	m_Edit_Frequency.UpdateText();
+	m_Edit_CapacitiveReactance.UpdateText();
+	m_Edit_Resistor.UpdateText();
+	m_Edit_TimeConstant.UpdateText();
+	m_Edit_RiseTime.UpdateText();
+	m_Edit_CutOffFrequency.UpdateText();
 }
 
 void CDlgCapacitiveReactance::OnClickedButtonXcClrFreq()
@@ -96,14 +92,14 @@ void CDlgCapacitiveReactance::OnClickedButtonXcClrCap()
 
 void CDlgCapacitiveReactance::OnClickedButtonXcClr()
 {
-	m_Edit_CapacitiveReactance.SetWindowTextW(L"");
 	m_CapacitiveReactance.Clr_Xc();
+	m_Edit_CapacitiveReactance.SetWindowTextW(L"");
 }
 
 void CDlgCapacitiveReactance::OnClickedButtonXcRisetimeClr()
 {
-	m_Edit_RiseTime.SetWindowTextW(L"");
 	m_CapacitiveReactance.Clr_RiseTime();
+	m_Edit_RiseTime.SetWindowTextW(L"");
 }
 
 void CDlgCapacitiveReactance::OnClickedButtonXcTimeconstantClr()
@@ -117,7 +113,11 @@ void CDlgCapacitiveReactance::OnClickedButtonCalcXc()
 {
 	if (CalculateXc() == false)
 	{
-		MessageBox(L"Xc:Too Many Blank Parameters", L"ERROR", MB_ICONHAND);
+		MessageBoxW(L"Xc:Too Many Blank Parameters", L"ERROR", MB_ICONHAND);
+	}
+	else
+	{
+		UpdateXcEditBoxes();
 	}
 }
 
@@ -127,7 +127,7 @@ BOOL CDlgCapacitiveReactance::OnInitDialog()
 
 
 	m_Edit_CapacitiveReactance.SetName("Xc");
-	m_Edit_CapacitiveReactance.SetValue(m_CapacitiveReactance.Get_Xc_Value(), CValue::ValueUnits::PICO_FARADS);
+	m_Edit_CapacitiveReactance.SetValue(m_CapacitiveReactance.Get_Xc_Value(), CValue::ValueUnits::OHMS);
 
 	m_Edit_Capacitor.SetName("C");
 	m_Edit_Capacitor.SetValue(m_CapacitiveReactance.Get_C_Value(), CValue::ValueUnits::PICO_FARADS);
@@ -139,13 +139,13 @@ BOOL CDlgCapacitiveReactance::OnInitDialog()
 	m_Edit_Frequency.SetValue(m_CapacitiveReactance.Get_F_Value(), CValue::ValueUnits::HERTZ);
 
 	m_Edit_RiseTime.SetName("RiseTime");
-	m_Edit_RiseTime.SetValue(m_CapacitiveReactance.Get_RiseTime_Value(), CValue::ValueUnits::SECONDS);
+	m_Edit_RiseTime.SetValue(m_CapacitiveReactance.Get_RiseTime_Value(), CValue::ValueUnits::MICROSECONDS);
 
 	m_Edit_Resistor.SetName("R");
 	m_Edit_Resistor.SetValue(m_CapacitiveReactance.Get_R_Value(), CValue::ValueUnits::OHMS);
 
 	m_Edit_TimeConstant.SetName("TC");
-	m_Edit_TimeConstant.SetValue(m_CapacitiveReactance.Get_TC_Value(), CValue::ValueUnits::SECONDS);
+	m_Edit_TimeConstant.SetValue(m_CapacitiveReactance.Get_TC_Value(), CValue::ValueUnits::MICROSECONDS);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 }

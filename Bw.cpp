@@ -48,11 +48,12 @@ double CBw::GetValue(ValueUnits vuUnits)
 	return value;
 }
 
-char* CBw::GetString(CString& cS, ValueUnits vuUnits)
+bool CBw::GetString(CString& cS, ValueUnits vuUnits)
 {
 	double value = 0.0;
 	CString csFormat;
-	char* pS = NULL;
+	double dbIntPart = 0.0;
+	bool bItsCoolDude = false;
 
 	if (IsSet() && HasValidUnits(vuUnits))
 	{
@@ -60,7 +61,7 @@ char* CBw::GetString(CString& cS, ValueUnits vuUnits)
 		switch (vuUnits)
 		{
 		case ValueUnits::HERTZ:
-			if (modf(value, NULL) == 0.0)
+			if (modf(value, &dbIntPart) == 0.0)
 			{
 				csFormat = "%0.0f";
 			}
@@ -69,9 +70,9 @@ char* CBw::GetString(CString& cS, ValueUnits vuUnits)
 				csFormat = "%0.3f";
 			}
 			cS.Format(csFormat, value);
-			pS = CT2A(cS);
+			bItsCoolDude = true;
 			break;
 		}
 	}
-	return pS;
+	return bItsCoolDude;
 }

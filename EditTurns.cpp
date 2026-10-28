@@ -26,24 +26,10 @@ END_MESSAGE_MAP()
 
 
 
-void CEditTurns::SetValue(CValue* pcvValue, CValue::ValueUnits Units)
-{
-	// TODO: Add your implementation code here
-}
-
 void CEditTurns::ConvertUnits(CValue::ValueUnits Units)
 {
 	// TODO: Add your implementation code here
 }
-
-void CEditTurns::UpdateText()
-{
-	// TODO: Add your implementation code here
-}
-
-void CEditTurns::UpdateValue()
-{}
-
 
 // CEditTurns message handlers
 
@@ -51,20 +37,15 @@ void CEditTurns::UpdateValue()
 
 void CEditTurns::OnEnChange()
 {
-    // TODO:  If this is a RICHEDIT control, the control will not
-    // send this notification unless you override the CEdit::OnInitDialog()
-    // function and call CRichEditCtrl().SetEventMask()
-    // with the ENM_CHANGE flag ORed into the mask.
-
-    // TODO:  Add your control notification handler code here
+	CEditParam::OnEnChange();
 }
 
 void CEditTurns::OnEnKillfocus()
 {
-	// TODO: Add your control notification handler code here
+	CEditParam::OnEnKillfocus();		
 }
 
 void CEditTurns::OnEnSetfocus()
 {
-	// TODO: Add your control notification handler code here
+	CEditParam::OnEnSetfocus();
 }

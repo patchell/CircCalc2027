@@ -48,11 +48,11 @@ double CTurns::GetValue(ValueUnits vuUnits)
 	return value;
 }
 
-char* CTurns::GetString(CString& cS, ValueUnits vuUnits)
+bool CTurns::GetString(CString& cS, ValueUnits vuUnits)
 {
 	double value = 0.0;
 	CString csFormat;
-	char* pS = NULL;
+	bool bItsCoolDude = false;
 
 	if (IsSet() && HasValidUnits(vuUnits))
 	{
@@ -62,9 +62,9 @@ char* CTurns::GetString(CString& cS, ValueUnits vuUnits)
 		case ValueUnits::TURNS:
 			csFormat = _T("%0.1f");
 			cS.Format(csFormat, value);
-			pS = CT2A(cS);
+			bItsCoolDude = true;
 			break;
 		}
 	}
-	return pS;
+	return bItsCoolDude;
 }

@@ -12,7 +12,7 @@ void CXc::SetValue(double value, ValueUnits vuUnits)
 {
 	if (HasValidUnits(vuUnits))
 	{
-		CValue::SetState(ValueState::SET);
+		printf("\t\t->CXc::SetValue: value = %lf, vuUnits = %d\n", value, static_cast<int>(vuUnits));
 		CValue::SetValue(value);
 	}
 	else
@@ -50,11 +50,12 @@ double CXc::GetValue(ValueUnits vuUnits)
 	return value;
 }
 
-char* CXc::GetString(CString& cS, ValueUnits vuUnits)
+bool CXc::GetString(CString& cS, ValueUnits vuUnits)
 {
 	double value = 0.0;
-	char* pS = nullptr;
+	double intpart = 0.0;
 	CString csFormat;
+	bool bItsCoolDude = false;
 
 	if (IsSet() && HasValidUnits(vuUnits))
 	{
@@ -62,16 +63,16 @@ char* CXc::GetString(CString& cS, ValueUnits vuUnits)
 		{
 		case ValueUnits::OHMS:
 			value = CValue::GetValue();
-			if (modf(value, NULL) == 0.0)
+			if (modf(value, &intpart) == 0.0)
 			{
 				csFormat = _T("%0.0lf");
 			}
 			else
 			{
-				csFormat = _T("%0.3lf");
+				csFormat = _T("%0.0lf");
 			}
 			cS.Format(csFormat, value);
-			pS = CT2A(cS);
+			bItsCoolDude = true;
 			break;
 		}
 	}
@@ -79,10 +80,10 @@ char* CXc::GetString(CString& cS, ValueUnits vuUnits)
 	{
 		cS.Empty();
 	}
-	return pS;
+	return bItsCoolDude;
 }
 
 void CXc::Print()
 {
-	printf("Capacitive Reactance: %lf Ohms\n", GetValue(ValueUnits::OHMS));
+	printf("\tCapacitive Reactance: %lf Ohms\n", GetValue(ValueUnits::OHMS));
 }

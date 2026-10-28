@@ -1,4 +1,13 @@
 #pragma once
+#include <Windows.h>
+#include <afx.h>
+#include <afxdialogex.h>
+#include <afxwin.h>
+#include "CoilCalculator.h"
+#include "EditInches.h"
+#include "EditInductor.h"
+#include "EditTurns.h"
+#include "EditTurnsPerInch.h"
 
 
 // CDlgCoilDesignCalculator dialog
@@ -58,8 +67,7 @@ public:
     afx_msg void OnClickedButtonCoilcalcTurnsPerInchClr();
     afx_msg void OnClickedButtonDiameterClr();
     afx_msg void OnClickedCheckCoilcalcMultilayer();
- 	afx_msg LRESULT OnCoilParams(WPARAM wParam, LPARAM lParam);
-    virtual BOOL OnInitDialog();
+     virtual BOOL OnInitDialog();
 	afx_msg void OnSelchangeComboWireSize();
 	CStatic m_Static_Radius2_Text;
 	CButton m_Button_Radius2Clr;

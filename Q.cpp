@@ -12,7 +12,6 @@ void CQ::SetValue(double value, ValueUnits vuUnits)
 {
 	if (IsSet() && HasValidUnits(vuUnits))
 	{
-		CValue::SetState(ValueState::SET);
 		CValue::SetValue(value);
 	}
 	else
@@ -50,11 +49,12 @@ double CQ::GetValue(ValueUnits vuUnits)
 	return value;
 }
 
-char* CQ::GetString(CString& cS, ValueUnits vuUnits)
+bool CQ::GetString(CString& cS, ValueUnits vuUnits)
 {
-	char* pS = nullptr;
 	double value = 0.0;
 	CString csFormat;
+	double dbIntPart = 0.0;
+	bool bItsCoolDude = false;
 
 	if (IsSet() && HasValidUnits(vuUnits))
 	{
@@ -62,7 +62,7 @@ char* CQ::GetString(CString& cS, ValueUnits vuUnits)
 		{
 		case ValueUnits::NONE:
 			value = CValue::GetValue();
-			if (modf(value, NULL) == 0.0)
+			if (modf(value, &dbIntPart) == 0.0)
 			{
 				csFormat = _T("%0.0lf");
 			}
@@ -71,13 +71,13 @@ char* CQ::GetString(CString& cS, ValueUnits vuUnits)
 				csFormat = _T("%0.2lf");
 			}
 			cS.Format(csFormat, value);
+			bItsCoolDude = true;
 			break;
 		}
-		pS = CT2A(cS);
 	}
 	else
 	{
 		cS.Empty();
 	}
-	return pS;
+	return bItsCoolDude;
 }

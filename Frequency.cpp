@@ -12,7 +12,6 @@ void CFrequency::SetValue(double value, ValueUnits vuUnits)
 {
 	if (HasValidUnits(vuUnits))
 	{
-		CValue::SetState(ValueState::SET);
 		CValue::SetValue(value);
 	}
 	else
@@ -39,28 +38,27 @@ double CFrequency::GetValue(ValueUnits vuUnits)
 	return CValue::GetValue();
 }
 
-char* CFrequency::GetString(CString& cS, ValueUnits vuUnits)
+bool CFrequency::GetString(CString& cS, ValueUnits vuUnits)
 {
-	char* pS = nullptr;
-
+	bool bItsCoolDude = false;
 	if (IsSet() && HasValidUnits(vuUnits))
 	{
 		switch (vuUnits)
 		{
 		case ValueUnits::HERTZ:
 			cS.Format(_T("%0.0lf"), GetValue(vuUnits));
+			bItsCoolDude = true;
 			break;
 		}
-		pS = CT2A(cS);
 	}
 	else
 	{
 		cS.Empty();
 	}
-	return pS;
+	return bItsCoolDude;
 }
 
 void CFrequency::Print()
 {
-	printf("Frequency: %lf Hertz\n", GetValue(ValueUnits::HERTZ));
+	printf("\tFrequency: %lf Hertz\n", GetValue(ValueUnits::HERTZ));
 }

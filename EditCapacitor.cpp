@@ -8,17 +8,6 @@
 
 IMPLEMENT_DYNAMIC(CEditCapacitor, CEditParam)
 
-void CEditCapacitor::SetValue(CValue* pcvValue, CValue::ValueUnits Units)
-{}
-
-void CEditCapacitor::ConvertUnits(CValue::ValueUnits Units)
-{}
-
-void CEditCapacitor::UpdateText()
-{}
-
-void CEditCapacitor::UpdateValue()
-{}
 
 CEditCapacitor::CEditCapacitor()
 {
@@ -37,27 +26,23 @@ BEGIN_MESSAGE_MAP(CEditCapacitor, CEdit)
 END_MESSAGE_MAP()
 
 
+void CEditCapacitor::ConvertUnits(CValue::ValueUnits Units)
+{
+}
 
 // CEditCapacitor message handlers
 
-
-
 void CEditCapacitor::OnEnChange()
 {
-    // TODO:  If this is a RICHEDIT control, the control will not
-    // send this notification unless you override the CEdit::OnInitDialog()
-    // function and call CRichEditCtrl().SetEventMask()
-    // with the ENM_CHANGE flag ORed into the mask.
-
-    // TODO:  Add your control notification handler code here
+	CEditParam::OnEnChange();
 }
 
 void CEditCapacitor::OnEnKillfocus()
 {
-	// TODO: Add your control notification handler code here
+	CEditParam::OnEnKillfocus();
 }
 
 void CEditCapacitor::OnEnSetfocus()
 {
-	// TODO: Add your control notification handler code here
+	CEditParam::OnEnSetfocus();
 }
