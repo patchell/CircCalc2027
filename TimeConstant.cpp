@@ -13,7 +13,17 @@ void CTimeConstant::SetValue(double value, ValueUnits vuUnits)
 {
 	if (HasValidUnits(vuUnits))
 	{
-		CValue::SetValue(value);
+		switch(vuUnits)
+		{
+		case ValueUnits::SECONDS:
+			printf("\tCTimeConstant::SetValue: Setting value to %lf seconds\n", value);
+			CValue::SetValue(value);
+			break;
+		case ValueUnits::MICROSECONDS:
+			printf("\tCTimeConstant::SetValue: Setting value to %lf microseconds\n", value);
+			CValue::SetValue(value * 1.0e-6);
+			break;
+		}
 	}
 	else
 	{
@@ -44,8 +54,10 @@ double CTimeConstant::GetValue(ValueUnits vuUnits)
 		switch (vuUnits)
 		{
 		case ValueUnits::SECONDS:
-		case ValueUnits::MICROSECONDS:
 			value = CValue::GetValue();
+			break;
+		case ValueUnits::MICROSECONDS:
+			value = CValue::GetValue() * 1.0e6;
 			break;
 		}
 	}
@@ -65,17 +77,29 @@ bool CTimeConstant::GetString(CString& cS, ValueUnits vuUnits)
 		{
 		case ValueUnits::SECONDS:
 			value = GetValue(vuUnits);
+			if (value < 0.000001)
+				csFormat.Format(_T("%0.8lf"), value);
+			else if (value < 0.0001)
+				csFormat.Format(_T("%0.6lf"), value);
+			else if (value < 0.01)
+				csFormat.Format(_T("%0.4lf"), value);
+			else if (value < 1.0)
+				csFormat.Format(_T("%0.3lf"), value);
+			else
+				csFormat.Format(_T("%0.1lf"), value);
 			bItsCoolDude = true;
 			break;
 		case ValueUnits::MICROSECONDS:
-			value = GetValue(vuUnits) * 1e6;
+			value = GetValue(vuUnits);
+			if (value < 1.0)
+				csFormat.Format(_T("%3.3le"), value);
+			else if (value < 10.0)
+				csFormat.Format(_T("%0.2lf"), value);
+			else 
+				csFormat.Format(_T("%0.0lf"), value);
 			bItsCoolDude = true;
 			break;
 		}
-		if (modf(value, &dbIntPart) == 0.0)
-			csFormat.Format(_T("%0.0lf"), value);
-		else
-			csFormat.Format(_T("%0.3lf"), value);
 		cS.Format(csFormat, value);
 	}
 	else

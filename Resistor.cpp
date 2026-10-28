@@ -63,13 +63,13 @@ bool CResistor::GetString(CString& cS, ValueUnits vuUnits)
 		{
 		case ValueUnits::OHMS:
 			value = CValue::GetValue();
-			if (modf(value, &dbIntPart) == 0.0)
+			if (value < 10.0)
 			{
-				csFormat = _T("%0.0lf");
+				csFormat = _T("%0.1lf");
 			}
 			else
 			{
-				csFormat = _T("%0.3lf");
+				csFormat = _T("%0.0lf");
 			}
 			cS.Format(csFormat, GetValue(vuUnits));
 			bItsCoolDude = true;

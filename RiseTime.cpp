@@ -12,7 +12,15 @@ void CRiseTime::SetValue(double value, ValueUnits vuUnits)
 {
 	if (HasValidUnits(vuUnits))
 	{
-		CValue::SetValue(value);
+		switch (vuUnits)
+		{
+		case ValueUnits::SECONDS:
+			CValue::SetValue(value);
+			break;
+		case ValueUnits::MICROSECONDS:
+			CValue::SetValue(value * 1.0e-6);
+			break;
+		}
 	}
 	else
 	{
@@ -40,13 +48,13 @@ double CRiseTime::GetValue(ValueUnits vuUnits)
 
 	if (IsSet() && HasValidUnits(vuUnits))
 	{
+		value = CValue::GetValue();
 		switch (vuUnits)
 		{
 		case ValueUnits::SECONDS:
-			value = CValue::GetValue() * 1.0e6;
 			break;
 		case ValueUnits::MICROSECONDS:
-			value = CValue::GetValue() ;
+			value = CValue::GetValue() * 1.0e6;
 			break;
 		}
 	}
@@ -66,17 +74,30 @@ bool CRiseTime::GetString(CString& cS, ValueUnits vuUnits)
 		{
 		case ValueUnits::SECONDS:
 			value = GetValue(CValue::ValueUnits::SECONDS);
-			csFormat =_T("%0.3lf");
-			cS.Format(csFormat, value);
+			if (value < 0.000001)
+				csFormat.Format(_T("%0.8lf"), value);
+			else if (value < 0.0001)
+				csFormat.Format(_T("%0.6lf"), value);
+			else if (value < 0.01)
+				csFormat.Format(_T("%0.4lf"), value);
+			else if (value < 1.0)
+				csFormat.Format(_T("%0.3lf"), value);
+			else
+				csFormat.Format(_T("%0.1lf"), value);
 			bItsCoolDude = true;
 			break;
 		case ValueUnits::MICROSECONDS:
-			value = GetValue(CValue::ValueUnits::MICROSECONDS) * 1.0e6;
-			csFormat = _T("%0.3lf");
-			cS.Format(csFormat, value);
+			value = GetValue(CValue::ValueUnits::MICROSECONDS);
+			if (value < 1.0)
+				csFormat.Format(_T("%3.3le"), value);
+			else if (value < 10.0)
+				csFormat.Format(_T("%0.2lf"), value);
+			else
+				csFormat.Format(_T("%0.0lf"), value);
 			bItsCoolDude = true;
 			break;
 		}
+		cS.Format(csFormat, value);
 	}
 	else
 		cS.Empty();

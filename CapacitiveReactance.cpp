@@ -16,6 +16,7 @@ bool CCapacitiveReactance::Calculate()
 	int nChanges = 0;
 	int nLastChanges = 0;
 	bool bLoop = true;
+	int nLoopCount = 0;
 
 	while(bLoop)
 	{
@@ -59,6 +60,11 @@ bool CCapacitiveReactance::Calculate()
 			bLoop = false;
 		else
 			nChanges = 0;
+		if (nLoopCount++ > 10)
+		{
+			bLoop = false;
+			AfxMessageBox(_T("Internal ERROR:CCapacitiveReactance::Calculate() - Loop count exceeded 10 iterations."));
+		}
 	}
 
 	return bChangeMade;
@@ -72,6 +78,7 @@ bool CCapacitiveReactance::CalculateC()
 		if(m_Xc.IsSet() && m_F.IsSet())
 		{
 			m_C.SetValue(CalculateCapacitance(Get_Xc(CValue::ValueUnits::OHMS), Get_F(CValue::ValueUnits::HERTZ	)), CValue::ValueUnits::FARADS);
+			m_C.SetState(CValue::ValueState::SET);
 			bChangeMade = true;
 		}
 	}
@@ -87,6 +94,7 @@ bool CCapacitiveReactance::CalculateF()
 		if(m_Xc.IsSet() && m_C.IsSet())
 		{
 			m_F.SetValue(CalculateFrequency(Get_Xc(CValue::ValueUnits::OHMS), Get_C(CValue::ValueUnits::FARADS)), CValue::ValueUnits::HERTZ);
+			m_F.SetState(CValue::ValueState::SET);
 			bChangeMade = true;
 		}
 	}
@@ -99,14 +107,6 @@ bool CCapacitiveReactance::CalculateXc()
 
 	if(m_Xc.IsNotSet())
 	{
-		if(m_C.IsSet())
-			printf("\t\tC is set\n");
-		else
-			printf("\t\tC is NOT set\n");
-		if (m_F.IsSet())
-			printf("\t\tF is set\n");
-		else
-			printf("\t\tF is NOT set\n");
 		if(m_C.IsSet() && m_F.IsSet())
 		{
 			m_Xc.SetValue(CalculateReactance(Get_C(CValue::ValueUnits::FARADS), Get_F(CValue::ValueUnits::HERTZ)), CValue::ValueUnits::OHMS);
