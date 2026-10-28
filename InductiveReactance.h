@@ -30,14 +30,13 @@ public:
 	static double CalculateRiseTime(double L, double R);
 	static double CalculateTimeConstant(double L, double R);
 	//--------------------------------
-	double Get_L_InHenrys()  { return m_L.GetValue(CValue::ValueUnits::HENRYS); }	
-	double Get_L_InMicroHenrys() { return m_L.GetValue(CValue::ValueUnits::MICROHENRYS); }
-	double Get_F()  { return m_F.GetValue(CValue::ValueUnits::HERTZ); }
-	double Get_Xl()  { return m_Xl.GetValue(CValue::ValueUnits::OHMS); }
-	double Get_R()  { return m_R.GetValue(CValue::ValueUnits::OHMS); }
-	double Get_Fc()  { return m_Fc.GetValue(CValue::ValueUnits::HERTZ); }
-	double Get_Rt()  { return m_Rt.GetValue(CValue::ValueUnits::SECONDS); }
-	double Get_Tc()  { return m_Tc.GetValue(CValue::ValueUnits::SECONDS); }
+	double Get_L(CValue::ValueUnits VU = CValue::ValueUnits::HENRYS)  { return m_L.GetValue(VU); }	
+	double Get_F(CValue::ValueUnits VU = CValue::ValueUnits::HERTZ)  { return m_F.GetValue(VU); }
+	double Get_Xl(CValue::ValueUnits VU = CValue::ValueUnits::OHMS)  { return m_Xl.GetValue(VU); }
+	double Get_R(CValue::ValueUnits VU = CValue::ValueUnits::OHMS)  { return m_R.GetValue(VU); }
+	double Get_Fc(CValue::ValueUnits VU = CValue::ValueUnits::HERTZ)  { return m_Fc.GetValue(VU); }
+	double Get_Rt(CValue::ValueUnits VU = CValue::ValueUnits::SECONDS)  { return m_Rt.GetValue(VU); }
+	double Get_Tc(CValue::ValueUnits VU = CValue::ValueUnits::SECONDS)  { return m_Tc.GetValue(VU); }
 	//--------- Get Value Objects ----------------------
 	CInductor* Get_L_Value() { return &m_L; }
 	CFrequency* Get_F_Value() { return &m_F; }
@@ -47,14 +46,13 @@ public:
 	CRiseTime* Get_Rt_Value() { return &m_Rt; }
 	CTimeConstant* Get_Tc_Value() { return &m_Tc; }
 	//--------------------------------
-	void Set_L_InMicroHenrys(double uH) { m_L.SetValue(uH, CValue::ValueUnits::MICROHENRYS); }
-	void Set_L_InHenrys(double H) { m_L.SetValue(H, CValue::ValueUnits::HENRYS); }
-	void Set_F(double F) { m_F.SetValue(F, CValue::ValueUnits::HERTZ); }
-	void Set_Xl(double Xl) { m_Xl.SetValue(Xl, CValue::ValueUnits::OHMS); }
-	void Set_R(double R) { m_R.SetValue(R, CValue::ValueUnits::OHMS); }
-	void Set_Fc(double Fc) { m_Fc.SetValue(Fc, CValue::ValueUnits::HERTZ); }
-	void Set_Rt(double Rt) { m_Rt.SetValue(Rt, CValue::ValueUnits::SECONDS); }
-	void Set_Tc(double Tc) { m_Tc.SetValue(Tc, CValue::ValueUnits::SECONDS); }
+	void Set_L(double Value,CValue::ValueUnits Units) { m_L.SetValue(Value, Units); }
+	void Set_F(double F, CValue::ValueUnits Units) { m_F.SetValue(F, Units); }
+	void Set_Xl(double Xl, CValue::ValueUnits Units) { m_Xl.SetValue(Xl, Units); }
+	void Set_R(double R, CValue::ValueUnits Units) { m_R.SetValue(R, Units); }
+	void Set_Fc(double Fc, CValue::ValueUnits Units) { m_Fc.SetValue(Fc, Units); }
+	void Set_Rt(double Rt, CValue::ValueUnits Units) { m_Rt.SetValue(Rt, Units); }
+	void Set_Tc(double Tc, CValue::ValueUnits Units) { m_Tc.SetValue(Tc, Units); }
 	//--------------------------------
 	bool Get_L_String(CString& cS, CValue::ValueUnits VU) { return m_L.GetString(cS, VU); }
 	bool Get_F_String(CString& cS, CValue::ValueUnits VU) { return m_F.GetString(cS, VU); }

@@ -12,7 +12,6 @@ void CXc::SetValue(double value, ValueUnits vuUnits)
 {
 	if (HasValidUnits(vuUnits))
 	{
-		printf("\t\t->CXc::SetValue: value = %lf, vuUnits = %d\n", value, static_cast<int>(vuUnits));
 		CValue::SetValue(value);
 	}
 	else
@@ -63,9 +62,13 @@ bool CXc::GetString(CString& cS, ValueUnits vuUnits)
 		{
 		case ValueUnits::OHMS:
 			value = CValue::GetValue();
-			if (modf(value, &intpart) == 0.0)
+			if (value < 1.0)
 			{
-				csFormat = _T("%0.0lf");
+				csFormat = _T("%3.3le");
+			}
+			else if (value < 10.0)
+			{
+				csFormat = _T("%0.2lf");
 			}
 			else
 			{

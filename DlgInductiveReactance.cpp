@@ -45,13 +45,13 @@ bool CDlgInductiveReactance::CalculateXl()
 void CDlgInductiveReactance::UpdateXlEditBoxes()
 {
 
-	m_Edit_CutOffFrequency.UpdateValue();
-	m_Edit_Frequency.UpdateValue();
-	m_Edit_Inductance.UpdateValue();
-	m_Edit_Resistance.UpdateValue();
-	m_Edit_RiseTime.UpdateValue();
-	m_Edit_TimeConstant.UpdateValue();
-	m_Edit_Reactance.UpdateValue();
+	m_Edit_CutOffFrequency.UpdateText();
+	m_Edit_Frequency.UpdateText();
+	m_Edit_Inductance.UpdateText();
+	m_Edit_Resistance.UpdateText();
+	m_Edit_RiseTime.UpdateText();
+	m_Edit_TimeConstant.UpdateText();
+	m_Edit_Reactance.UpdateText();
 }
 
 
@@ -117,7 +117,12 @@ void CDlgInductiveReactance::OnClickedButtonXlTimeConstantClr()
 
 void CDlgInductiveReactance::OnClickedButtonCalcXl()
 {
-	CalculateXl();
+	if(CalculateXl())
+		UpdateXlEditBoxes();
+	else
+	{
+		AfxMessageBox(L"Unable to calculate Inductive Reactance. Please check input values.", MB_ICONWARNING); {}
+	}
 }
 
 BOOL CDlgInductiveReactance::OnInitDialog()
@@ -137,9 +142,11 @@ BOOL CDlgInductiveReactance::OnInitDialog()
 	m_Edit_Resistance.SetValue(m_InductiveReactance.Get_R_Value(), CValue::ValueUnits::OHMS);
 
 	m_Edit_RiseTime.SetName("Rise Time");
-	m_Edit_RiseTime.SetValue(m_InductiveReactance.Get_Rt_Value(), CValue::ValueUnits::SECONDS);
+	m_Edit_RiseTime.SetValue(m_InductiveReactance.Get_Rt_Value(), CValue::ValueUnits::MICROSECONDS);
 
 	m_Edit_TimeConstant.SetName("Time Constant");
-	m_Edit_TimeConstant.SetValue(m_InductiveReactance.Get_Tc_Value(), CValue::ValueUnits::SECONDS);
+	m_Edit_TimeConstant.SetValue(m_InductiveReactance.Get_Tc_Value(), CValue::ValueUnits::MICROSECONDS);
 
+	m_Edit_Reactance.SetName("Inductive Reactance");
+	m_Edit_Reactance.SetValue(m_InductiveReactance.Get_Xl_Value(), CValue::ValueUnits::OHMS);
 	return TRUE;  }

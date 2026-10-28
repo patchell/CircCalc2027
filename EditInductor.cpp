@@ -26,7 +26,7 @@ END_MESSAGE_MAP()
 
 void CEditInductor::ConvertUnits(CValue::ValueUnits Units)
 {
-	// TODO: Add your implementation code here
+
 }
 
 

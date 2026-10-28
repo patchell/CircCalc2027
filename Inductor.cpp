@@ -63,17 +63,43 @@ double CInductor::GetValue(ValueUnits vuUnits)
 
 bool CInductor::GetString(CString& cS, ValueUnits vuUnits)
 {
+	double value = 0.0;
+
 	bool bItsCoolDude = false;
 	if (IsSet() && HasValidUnits(vuUnits))
 	{
+		value = GetValue(vuUnits);
 		switch (vuUnits)
 		{
 		case ValueUnits::HENRYS:
-			cS.Format(_T("%0.6lf"), GetValue(vuUnits));
+			if (value > 100.0)
+			{
+				cS.Format(_T("%0.0lf"), value);
+			}
+			else
+			{
+				cS.Format(_T("%2.3le"), value);
+			}
+			cS.Format(_T("%0.6lf"), value);
 			bItsCoolDude = true;
 			break;
 		case ValueUnits::MICROHENRYS:
-			cS.Format(_T("%0.0lf"), GetValue(vuUnits));
+			if (value > 100.0)
+			{
+				cS.Format(_T("%0.0lf"), value);
+			}
+			else if (value < 100.0 && value > 10.0)
+			{
+				cS.Format(_T("%0.1lf"), value);
+			}
+			else if (value < 10.0 && value > 1.0)
+			{
+				cS.Format(_T("%0.2lf"), value);
+			}
+			else
+			{
+				cS.Format(_T("%2.3le"), value);
+			}
 			bItsCoolDude = true;
 			break;
 		}

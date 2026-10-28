@@ -13,7 +13,6 @@ void CXl::SetValue(double value, ValueUnits vuUnits)
 	if (HasValidUnits(vuUnits))
 	{
 		CValue::SetValue(value);
-		SetState(ValueState::SET);
 	}
 }
 
@@ -59,13 +58,20 @@ bool CXl::GetString(CString& cS, ValueUnits vuUnits)
 		switch (vuUnits)
 		{
 		case ValueUnits::OHMS:
-			if (modf(value, &dbIntPart) == 0.0)
-				csFormat = _T("%0.0lf");
+			if (value < 1.0)
+			{
+				csFormat = _T("%3.3le");
+			}
+			else if (value < 10.0)
+			{
+				csFormat = _T("%0.2lf");
+			}
 			else
-				csFormat = _T("%0.3lf");
+			{
+				csFormat = _T("%0.0lf");
+			}
 			cS.Format(csFormat, value);
 			bItsCoolDude = true;
-			break;
 		}
 	}
 	else
